@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:gisscope/login_page.dart';
+import 'package:gisscope/pages/home_page.dart';
+import 'package:gisscope/pages/login_page.dart';
+import 'package:gisscope/pages/main_page.dart';
+import 'package:gisscope/styles/app_colors.dart';
 
 void main() {
   runApp(const MyApp());
@@ -11,9 +14,17 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
       title: 'Flutter Demo',
-      home: LoginPage(),
+      theme: ThemeData(
+          fontFamily: 'Urbanist',
+          scaffoldBackgroundColor: AppColors.background),
+      initialRoute: '/',
+      routes: {
+        '/': (context) => LoginPage(),
+        '/home': (context) => HomePage(),
+        '/main': (context) => MainPage(),
+      },
     );
   }
 }
