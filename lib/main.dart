@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:gisscope/pages/home_page.dart';
 import 'package:gisscope/pages/login_page.dart';
 import 'package:gisscope/pages/main_page.dart';
+import 'package:gisscope/pages/profile_page.dart';
 import 'package:gisscope/styles/app_colors.dart';
 
 void main() {
@@ -25,6 +26,7 @@ class MyApp extends StatelessWidget {
       routes: {
         '/': (context) => LoginPage(),
         '/home': (context) => HomePage(),
+        '/profile': (context) => ProfilePage(),
         '/main': (context) => MainPage(),
       },
     );

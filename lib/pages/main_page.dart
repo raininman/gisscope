@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gisscope/pages/home_page.dart';
+import 'package:gisscope/pages/profile_page.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({super.key});
@@ -65,8 +66,6 @@ class _MainPageState extends State<MainPage> {
     Center(
       child: Text("Messages"),
     ),
-    Center(
-      child: Text("User"),
-    ),
+    ProfilePage(),
   ];
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gisscope/components/post_item.dart';
+import 'package:gisscope/components/toolbar.dart';
 import 'package:gisscope/styles/app_colors.dart';
 
 class HomePage extends StatelessWidget {
@@ -10,10 +11,14 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     mockUsersPost();
     return Scaffold(
-        appBar: AppBar(
-          title: Text("GisScope"),
-          backgroundColor: AppColors.background,
-          actions: [Icon(Icons.location_on_outlined)],
+        appBar: Toolbar(
+          title: "GisScope",
+          actions: [
+            IconButton(
+              icon: Icon(Icons.location_on_outlined),
+              onPressed: () {},
+            ),
+          ],
         ),
         body: ListView.separated(
             itemBuilder: (context, index) {
