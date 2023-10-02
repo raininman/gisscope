@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gisscope/pages/edit_profile_page.dart';
 import 'package:gisscope/pages/home_page.dart';
 import 'package:gisscope/pages/login_page.dart';
 import 'package:gisscope/pages/main_page.dart';
@@ -28,6 +29,7 @@ class MyApp extends StatelessWidget {
         '/home': (context) => HomePage(),
         '/profile': (context) => ProfilePage(),
         '/main': (context) => MainPage(),
+        '/edit_profile': (context) => EditProfilePage(),
       },
     );
   }

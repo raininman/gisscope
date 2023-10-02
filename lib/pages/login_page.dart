@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:gisscope/components/app_text_field.dart';
+import 'package:gisscope/styles/app_colors.dart';
 
 class LoginPage extends StatelessWidget {
   const LoginPage({super.key});
@@ -17,7 +19,7 @@ class LoginPage extends StatelessWidget {
                 const Text(
                   "Hello, welcome back!",
                   style: TextStyle(
-                    color: Colors.white,
+                    color: AppColors.fontColor,
                     fontSize: 24,
                     fontWeight: FontWeight.w600,
                   ),
@@ -28,33 +30,17 @@ class LoginPage extends StatelessWidget {
                 const Text(
                   "Login to continue",
                   style: TextStyle(
-                    color: Colors.white,
+                    color: AppColors.fontColor,
                     fontSize: 16,
                     fontWeight: FontWeight.w500,
                   ),
                 ),
                 const Spacer(),
-                const TextField(
-                  decoration: InputDecoration(
-                    hintText: "Username",
-                    border: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(12))),
-                    filled: true,
-                    fillColor: Color.fromRGBO(217, 217, 217, 1),
-                  ),
-                ),
+                AppTextField(hint: "Username"),
                 const SizedBox(
                   height: 16,
                 ),
-                const TextField(
-                  decoration: InputDecoration(
-                    hintText: "Password",
-                    border: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(12))),
-                    filled: true,
-                    fillColor: Color.fromRGBO(217, 217, 217, 1),
-                  ),
-                ),
+                AppTextField(hint: "Password"),
                 Align(
                   alignment: Alignment.centerRight,
                   child: TextButton(
@@ -62,7 +48,7 @@ class LoginPage extends StatelessWidget {
                       print("Forgot");
                     },
                     style: TextButton.styleFrom(
-                      foregroundColor: Color.fromRGBO(194, 194, 194, 1),
+                      foregroundColor: AppColors.fontColor,
                     ),
                     child: const Text("Forgot password?"),
                   ),
@@ -79,7 +65,7 @@ class LoginPage extends StatelessWidget {
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: const Color.fromRGBO(251, 213, 18, 1),
-                      foregroundColor: Colors.black,
+                      foregroundColor: AppColors.black,
                     ),
                     child: const Text("Log in"),
                   ),
@@ -87,8 +73,7 @@ class LoginPage extends StatelessWidget {
                 const Spacer(),
                 const Text(
                   "Or sign in with",
-                  style: TextStyle(
-                      color: Color.fromRGBO(216, 216, 216, 1), fontSize: 16),
+                  style: TextStyle(color: AppColors.fontColor, fontSize: 16),
                 ),
                 const SizedBox(
                   height: 24.5,
@@ -167,13 +152,12 @@ class LoginPage extends StatelessWidget {
                     const Text(
                       "Don't have account? ",
                       style: TextStyle(
-                        color: Color.fromRGBO(167, 167, 167, 1),
+                        color: AppColors.disableFont,
                       ),
                     ),
                     TextButton(
                       style: TextButton.styleFrom(
-                          foregroundColor:
-                              const Color.fromRGBO(251, 213, 18, 1)),
+                          foregroundColor: AppColors.primary),
                       onPressed: () {
                         print("sign up");
                       },

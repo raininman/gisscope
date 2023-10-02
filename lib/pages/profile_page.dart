@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gisscope/components/toolbar.dart';
+import 'package:gisscope/components/user_avatar.dart';
 import 'package:gisscope/styles/app_text.dart';
 
 enum ProfileMenu {
@@ -23,7 +24,7 @@ class ProfilePage extends StatelessWidget {
                   print("logout");
                   break;
                 case ProfileMenu.edit:
-                  print("edit");
+                  Navigator.of(context).pushNamed("/edit_profile");
                   break;
                 default:
                   print("Error");
@@ -46,17 +47,7 @@ class ProfilePage extends StatelessWidget {
       ),
       body: Column(
         children: [
-          ClipRRect(
-            borderRadius: BorderRadius.all(
-              Radius.circular(10),
-            ),
-            child: Image.asset(
-              "assets/temp/user1.jpg",
-              width: 90,
-              height: 90,
-              fit: BoxFit.cover,
-            ),
-          ),
+          UserAvatar(size: 90,),
           SizedBox(
             height: 24,
           ),

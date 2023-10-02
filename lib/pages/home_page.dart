@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gisscope/components/post_item.dart';
 import 'package:gisscope/components/toolbar.dart';
-import 'package:gisscope/styles/app_colors.dart';
 
 class HomePage extends StatelessWidget {
   HomePage({super.key});
