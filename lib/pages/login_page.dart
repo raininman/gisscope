@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gisscope/components/app_text_field.dart';
+import 'package:gisscope/config/app_strings.dart';
 import 'package:gisscope/styles/app_colors.dart';
 
 class LoginPage extends StatelessWidget {
@@ -17,7 +18,7 @@ class LoginPage extends StatelessWidget {
               children: [
                 const Spacer(),
                 const Text(
-                  "Hello, welcome back!",
+                  AppStrings.helloWelcome,
                   style: TextStyle(
                     color: AppColors.fontColor,
                     fontSize: 24,
@@ -28,7 +29,7 @@ class LoginPage extends StatelessWidget {
                   height: 16,
                 ),
                 const Text(
-                  "Login to continue",
+                  AppStrings.loginToContinue,
                   style: TextStyle(
                     color: AppColors.fontColor,
                     fontSize: 16,
@@ -36,11 +37,11 @@ class LoginPage extends StatelessWidget {
                   ),
                 ),
                 const Spacer(),
-                AppTextField(hint: "Username"),
+                AppTextField(hint: AppStrings.username),
                 const SizedBox(
                   height: 16,
                 ),
-                AppTextField(hint: "Password"),
+                AppTextField(hint: AppStrings.password),
                 Align(
                   alignment: Alignment.centerRight,
                   child: TextButton(
@@ -50,7 +51,7 @@ class LoginPage extends StatelessWidget {
                     style: TextButton.styleFrom(
                       foregroundColor: AppColors.fontColor,
                     ),
-                    child: const Text("Forgot password?"),
+                    child: const Text(AppStrings.forgotPassword),
                   ),
                 ),
                 const SizedBox(
@@ -67,12 +68,12 @@ class LoginPage extends StatelessWidget {
                       backgroundColor: const Color.fromRGBO(251, 213, 18, 1),
                       foregroundColor: AppColors.black,
                     ),
-                    child: const Text("Log in"),
+                    child: const Text(AppStrings.login),
                   ),
                 ),
                 const Spacer(),
                 const Text(
-                  "Or sign in with",
+                  AppStrings.orSignIn,
                   style: TextStyle(color: AppColors.fontColor, fontSize: 16),
                 ),
                 const SizedBox(
@@ -104,7 +105,7 @@ class LoginPage extends StatelessWidget {
                         const SizedBox(
                           width: 8,
                         ),
-                        const Text("Login with Google")
+                        const Text(AppStrings.loginGoogle)
                       ],
                     ),
                   ),
@@ -138,7 +139,7 @@ class LoginPage extends StatelessWidget {
                         const SizedBox(
                           width: 8,
                         ),
-                        const Text("Login with Facebook")
+                        const Text(AppStrings.loginFacebook)
                       ],
                     ),
                   ),
@@ -150,7 +151,7 @@ class LoginPage extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     const Text(
-                      "Don't have account? ",
+                      AppStrings.dontHaveAccount,
                       style: TextStyle(
                         color: AppColors.disableFont,
                       ),
@@ -162,7 +163,7 @@ class LoginPage extends StatelessWidget {
                         print("sign up");
                       },
                       child: const Text(
-                        "Sign up",
+                        AppStrings.signUp,
                         style: TextStyle(decoration: TextDecoration.underline),
                       ),
                     ),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gisscope/components/post_item.dart';
 import 'package:gisscope/components/toolbar.dart';
+import 'package:gisscope/config/app_strings.dart';
 
 class HomePage extends StatelessWidget {
   HomePage({super.key});
@@ -11,7 +12,7 @@ class HomePage extends StatelessWidget {
     mockUsersPost();
     return Scaffold(
         appBar: Toolbar(
-          title: "GisScope",
+          title: AppStrings.appName,
           actions: [
             IconButton(
               icon: Icon(Icons.location_on_outlined),

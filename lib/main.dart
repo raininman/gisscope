@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:gisscope/pages/edit_profile_page.dart';
-import 'package:gisscope/pages/home_page.dart';
-import 'package:gisscope/pages/login_page.dart';
-import 'package:gisscope/pages/main_page.dart';
-import 'package:gisscope/pages/profile_page.dart';
+import 'package:gisscope/config/app_routes.dart';
+import 'package:gisscope/config/app_strings.dart';
 import 'package:gisscope/styles/app_colors.dart';
 
 void main() {
@@ -17,20 +14,14 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: AppStrings.appName,
       theme: ThemeData(
         fontFamily: 'Urbanist',
         scaffoldBackgroundColor: AppColors.background,
         brightness: Brightness.dark,
       ),
-      initialRoute: '/',
-      routes: {
-        '/': (context) => LoginPage(),
-        '/home': (context) => HomePage(),
-        '/profile': (context) => ProfilePage(),
-        '/main': (context) => MainPage(),
-        '/edit_profile': (context) => EditProfilePage(),
-      },
+      initialRoute: AppRoutes.login,
+      routes:AppRoutes.pages,
     );
   }
 }

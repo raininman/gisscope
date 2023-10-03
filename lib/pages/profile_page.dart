@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gisscope/components/toolbar.dart';
 import 'package:gisscope/components/user_avatar.dart';
+import 'package:gisscope/config/app_strings.dart';
 import 'package:gisscope/styles/app_text.dart';
 
 enum ProfileMenu {
@@ -15,7 +16,7 @@ class ProfilePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: Toolbar(
-        title: "Profile",
+        title: AppStrings.profile,
         actions: [
           PopupMenuButton<ProfileMenu>(
             onSelected: (value) {
@@ -33,11 +34,11 @@ class ProfilePage extends StatelessWidget {
             itemBuilder: (context) {
               return [
                 PopupMenuItem(
-                  child: Text("Edit"),
+                  child: Text(AppStrings.edit),
                   value: ProfileMenu.edit,
                 ),
                 PopupMenuItem(
-                  child: Text("Log out"),
+                  child: Text(AppStrings.logOut),
                   value: ProfileMenu.logout,
                 ),
               ];
@@ -52,14 +53,14 @@ class ProfilePage extends StatelessWidget {
             height: 24,
           ),
           Text(
-            "Username",
+            AppStrings.username,
             style: AppText.subtitle1,
           ),
           SizedBox(
             height: 12,
           ),
           Text(
-            "Location",
+            AppStrings.location,
             style: AppText.subtitle1,
           ),
           SizedBox(
@@ -75,7 +76,7 @@ class ProfilePage extends StatelessWidget {
                     style: AppText.subtitle1,
                   ),
                   Text(
-                    "Followers",
+                    AppStrings.followers,
                     style: AppText.body1,
                   )
                 ],
@@ -87,7 +88,7 @@ class ProfilePage extends StatelessWidget {
                     style: AppText.subtitle1,
                   ),
                   Text(
-                    "Posts",
+                    AppStrings.posts,
                     style: AppText.body1,
                   )
                 ],
@@ -99,7 +100,7 @@ class ProfilePage extends StatelessWidget {
                     style: AppText.subtitle1,
                   ),
                   Text(
-                    "Following",
+                    AppStrings.following,
                     style: AppText.body1,
                   )
                 ],

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:gisscope/components/app_text_field.dart';
 import 'package:gisscope/components/toolbar.dart';
 import 'package:gisscope/components/user_avatar.dart';
+import 'package:gisscope/config/app_strings.dart';
 import 'package:gisscope/styles/app_colors.dart';
 import 'package:gisscope/styles/app_text.dart';
 
@@ -20,7 +21,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: Toolbar(title: "Edit Profile"),
+      appBar: Toolbar(title: AppStrings.editProfile),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(24.0),
@@ -57,23 +58,23 @@ class _EditProfilePageState extends State<EditProfilePage> {
               SizedBox(
                 height: 60,
               ),
-              AppTextField(hint: "First Name"),
+              AppTextField(hint: AppStrings.firstName),
               SizedBox(
                 height: 16,
               ),
-              AppTextField(hint: "Last Name"),
+              AppTextField(hint: AppStrings.lastName),
               SizedBox(
                 height: 16,
               ),
-              AppTextField(hint: "Phone Number"),
+              AppTextField(hint: AppStrings.phoneNumber),
               SizedBox(
                 height: 16,
               ),
-              AppTextField(hint: "Location"),
+              AppTextField(hint: AppStrings.location),
               SizedBox(
                 height: 16,
               ),
-              AppTextField(hint: "Birthday"),
+              AppTextField(hint: AppStrings.birthday),
               SizedBox(
                 height: 16,
               ),
@@ -89,7 +90,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "Gender",
+                      AppStrings.gender,
                       style: AppText.body2,
                     ),
                     Row(
@@ -100,7 +101,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                               visualDensity: VisualDensity(
                                   horizontal: VisualDensity.minimumDensity,
                                   vertical: VisualDensity.minimumDensity),
-                              title: Text("Male"),
+                              title: Text(AppStrings.male),
                               value: Gender.male,
                               groupValue: gender,
                               onChanged: (value) {
@@ -116,7 +117,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                                 horizontal: VisualDensity.minimumDensity,
                                 vertical: VisualDensity.minimumDensity,
                               ),
-                              title: Text("Female"),
+                              title: Text(AppStrings.female),
                               value: Gender.female,
                               groupValue: gender,
                               onChanged: (value) {
@@ -132,7 +133,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                                 horizontal: VisualDensity.minimumDensity,
                                 vertical: VisualDensity.minimumDensity,
                               ),
-                              title: Text("Other"),
+                              title: Text(AppStrings.other),
                               value: Gender.other,
                               groupValue: gender,
                               onChanged: (value) {
