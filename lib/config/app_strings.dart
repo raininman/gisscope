@@ -27,5 +27,6 @@ class AppStrings {
   static const male = "Male";
   static const female = "Female";
   static const other = "Other";
+  static const nearby = "Nearby";
   
 }

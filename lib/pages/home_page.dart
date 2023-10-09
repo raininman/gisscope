@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gisscope/components/post_item.dart';
 import 'package:gisscope/components/toolbar.dart';
+import 'package:gisscope/config/app_routes.dart';
 import 'package:gisscope/config/app_strings.dart';
 
 class HomePage extends StatelessWidget {
@@ -16,7 +17,9 @@ class HomePage extends StatelessWidget {
           actions: [
             IconButton(
               icon: Icon(Icons.location_on_outlined),
-              onPressed: () {},
+              onPressed: () {
+                Navigator.of(context).pushNamed(AppRoutes.nearby);
+              },
             ),
           ],
         ),

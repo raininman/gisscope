@@ -3,7 +3,8 @@ import 'package:gisscope/styles/app_colors.dart';
 
 class AppTextField extends StatelessWidget {
   final String hint;
-  const AppTextField({super.key, required this.hint});
+  final TextEditingController? controller;
+  const AppTextField({super.key, required this.hint, this.controller});
 
   @override
   Widget build(BuildContext context) {
@@ -11,9 +12,7 @@ class AppTextField extends StatelessWidget {
       decoration: InputDecoration(
         hintText: hint,
         labelText: hint,
-        labelStyle: const TextStyle(
-          color: AppColors.white
-        ),
+        labelStyle: const TextStyle(color: AppColors.white),
         border: const UnderlineInputBorder(
           borderRadius: BorderRadius.all(
             Radius.circular(12),
@@ -28,6 +27,7 @@ class AppTextField extends StatelessWidget {
         filled: true,
         fillColor: AppColors.fieldColor,
       ),
+      controller: controller,
     );
   }
 }

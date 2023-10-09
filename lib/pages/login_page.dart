@@ -1,10 +1,21 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:gisscope/components/app_text_field.dart';
 import 'package:gisscope/config/app_strings.dart';
+import 'package:gisscope/model/user.dart';
 import 'package:gisscope/styles/app_colors.dart';
+import 'package:http/http.dart' as http;
+
+const baseURL = 'http://10.0.3.2:9090';
 
 class LoginPage extends StatelessWidget {
-  const LoginPage({super.key});
+  final loginRoute = '$baseURL/login';
+
+  final usernameController = TextEditingController();
+  final passwordController = TextEditingController();
+
+  LoginPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -37,11 +48,17 @@ class LoginPage extends StatelessWidget {
                   ),
                 ),
                 const Spacer(),
-                AppTextField(hint: AppStrings.username),
+                AppTextField(
+                  hint: AppStrings.username,
+                  controller: usernameController,
+                ),
                 const SizedBox(
                   height: 16,
                 ),
-                AppTextField(hint: AppStrings.password),
+                AppTextField(
+                  hint: AppStrings.password,
+                  controller: passwordController,
+                ),
                 Align(
                   alignment: Alignment.centerRight,
                   child: TextButton(
@@ -61,8 +78,9 @@ class LoginPage extends StatelessWidget {
                   height: 48,
                   width: double.infinity,
                   child: ElevatedButton(
-                    onPressed: () {
-                      Navigator.of(context).pushReplacementNamed('/main');
+                    onPressed: () async {
+                      final user = await login();
+                      //Navigator.of(context).pushReplacementNamed('/main');
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: const Color.fromRGBO(251, 213, 18, 1),
@@ -176,5 +194,25 @@ class LoginPage extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  Future<User> login() async {
+    final username = usernameController.text;
+    final password = passwordController.text;
+    final body = {
+      'username': username,
+      'password': password,
+    };
+    final response =
+        await http.post(Uri.parse(loginRoute), body: jsonEncode(body));
+    if (response.statusCode == 200) {
+      print(response.body);
+      final json = jsonDecode(response.body);
+      final user = User.fromFields(json['data']);
+      return user;
+    } else {
+      print(response.body);
+      throw (Exception("Error!"));
+    }
   }
 }
