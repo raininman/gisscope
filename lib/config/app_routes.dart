@@ -4,10 +4,13 @@ import 'package:gisscope/pages/login_page.dart';
 import 'package:gisscope/pages/main_page.dart';
 import 'package:gisscope/pages/nearby_page.dart';
 import 'package:gisscope/pages/profile_page.dart';
+import 'package:gisscope/provider/login_provider.dart';
+import 'package:provider/provider.dart';
 
 class AppRoutes {
   static final pages = {
-    login: (context) => LoginPage(),
+    login: (context) => ChangeNotifierProvider(create: (context) => LoginProvider(),
+    child: LoginPage()),
     home: (context) => HomePage(),
     profile: (context) => ProfilePage(),
     main: (context) => MainPage(),

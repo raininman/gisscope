@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:gisscope/components/toolbar.dart';
 import 'package:gisscope/components/user_avatar.dart';
 import 'package:gisscope/config/app_strings.dart';
+import 'package:gisscope/provider/app_repo.dart';
 import 'package:gisscope/styles/app_text.dart';
-import 'package:gisscope/user_provider.dart';
+import 'package:provider/provider.dart';
 
 enum ProfileMenu {
   edit,
@@ -15,7 +16,7 @@ class ProfilePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final user = UserProvider.of(context)?.user;
+    final user = Provider.of<AppRepo>(context).user;
     return Scaffold(
       appBar: Toolbar(
         title: AppStrings.profile,

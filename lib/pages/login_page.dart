@@ -1,21 +1,11 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
-import 'package:gisscope/components/app_text_field.dart';
 import 'package:gisscope/config/app_strings.dart';
-import 'package:gisscope/model/user.dart';
+import 'package:gisscope/provider/app_repo.dart';
+import 'package:gisscope/provider/login_provider.dart';
 import 'package:gisscope/styles/app_colors.dart';
-import 'package:gisscope/user_provider.dart';
-import 'package:http/http.dart' as http;
-
-const baseURL = 'http://10.0.3.2:9090';
+import 'package:provider/provider.dart';
 
 class LoginPage extends StatelessWidget {
-  final loginRoute = '$baseURL/login';
-
-  final usernameController = TextEditingController();
-  final passwordController = TextEditingController();
-
   LoginPage({super.key});
 
   @override
@@ -49,16 +39,54 @@ class LoginPage extends StatelessWidget {
                   ),
                 ),
                 const Spacer(),
-                AppTextField(
-                  hint: AppStrings.username,
-                  controller: usernameController,
+                TextField(
+                  decoration: InputDecoration(
+                    hintText: AppStrings.username,
+                    labelText: AppStrings.username,
+                    labelStyle: const TextStyle(color: AppColors.white),
+                    border: const UnderlineInputBorder(
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(12),
+                      ),
+                    ),
+                    focusedBorder: const UnderlineInputBorder(
+                      borderSide: BorderSide(color: Colors.transparent),
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(12),
+                      ),
+                    ),
+                    filled: true,
+                    fillColor: AppColors.fieldColor,
+                  ),
+                  onChanged: (value) {
+                    context.read<LoginProvider>().username = value;
+                  },
                 ),
                 const SizedBox(
                   height: 16,
                 ),
-                AppTextField(
-                  hint: AppStrings.password,
-                  controller: passwordController,
+                TextField(
+                  decoration: InputDecoration(
+                    hintText: AppStrings.password,
+                    labelText: AppStrings.password,
+                    labelStyle: const TextStyle(color: AppColors.white),
+                    border: const UnderlineInputBorder(
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(12),
+                      ),
+                    ),
+                    focusedBorder: const UnderlineInputBorder(
+                      borderSide: BorderSide(color: Colors.transparent),
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(12),
+                      ),
+                    ),
+                    filled: true,
+                    fillColor: AppColors.fieldColor,
+                  ),
+                  onChanged: (value) {
+                    context.read<LoginProvider>().password = value;
+                  },
                 ),
                 Align(
                   alignment: Alignment.centerRight,
@@ -79,10 +107,12 @@ class LoginPage extends StatelessWidget {
                   height: 48,
                   width: double.infinity,
                   child: ElevatedButton(
-                    onPressed: () async {
-                      final user = await login();
-                      UserProvider.of(context)?.updateUser(user);
-                      Navigator.of(context).pushReplacementNamed('/main');
+                    onPressed: () {
+                      context.read<LoginProvider>().login().then((value) {
+                        context.read<AppRepo>().user = value.user;
+                        context.read<AppRepo>().token = value.token;
+                        Navigator.of(context).pushReplacementNamed('/main');
+                      });
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: const Color.fromRGBO(251, 213, 18, 1),
@@ -196,25 +226,5 @@ class LoginPage extends StatelessWidget {
         ),
       ),
     );
-  }
-
-  Future<User> login() async {
-    final username = usernameController.text;
-    final password = passwordController.text;
-    final body = {
-      'username': username,
-      'password': password,
-    };
-    final response =
-        await http.post(Uri.parse(loginRoute), body: jsonEncode(body));
-    if (response.statusCode == 200) {
-      print(response.body);
-      final json = jsonDecode(response.body);
-      final user = User.fromJson(json['data']);
-      return user;
-    } else {
-      print(response.body);
-      throw (Exception("Error!"));
-    }
   }
 }
