@@ -5,6 +5,7 @@ import 'package:gisscope/components/app_text_field.dart';
 import 'package:gisscope/config/app_strings.dart';
 import 'package:gisscope/model/user.dart';
 import 'package:gisscope/styles/app_colors.dart';
+import 'package:gisscope/user_provider.dart';
 import 'package:http/http.dart' as http;
 
 const baseURL = 'http://10.0.3.2:9090';
@@ -80,7 +81,8 @@ class LoginPage extends StatelessWidget {
                   child: ElevatedButton(
                     onPressed: () async {
                       final user = await login();
-                      //Navigator.of(context).pushReplacementNamed('/main');
+                      UserProvider.of(context)?.updateUser(user);
+                      Navigator.of(context).pushReplacementNamed('/main');
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: const Color.fromRGBO(251, 213, 18, 1),
@@ -208,7 +210,7 @@ class LoginPage extends StatelessWidget {
     if (response.statusCode == 200) {
       print(response.body);
       final json = jsonDecode(response.body);
-      final user = User.fromFields(json['data']);
+      final user = User.fromJson(json['data']);
       return user;
     } else {
       print(response.body);

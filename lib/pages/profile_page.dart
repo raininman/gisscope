@@ -3,6 +3,7 @@ import 'package:gisscope/components/toolbar.dart';
 import 'package:gisscope/components/user_avatar.dart';
 import 'package:gisscope/config/app_strings.dart';
 import 'package:gisscope/styles/app_text.dart';
+import 'package:gisscope/user_provider.dart';
 
 enum ProfileMenu {
   edit,
@@ -14,6 +15,7 @@ class ProfilePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final user = UserProvider.of(context)?.user;
     return Scaffold(
       appBar: Toolbar(
         title: AppStrings.profile,
@@ -48,19 +50,21 @@ class ProfilePage extends StatelessWidget {
       ),
       body: Column(
         children: [
-          UserAvatar(size: 90,),
+          UserAvatar(
+            size: 90,
+          ),
           SizedBox(
             height: 24,
           ),
           Text(
-            AppStrings.username,
+            "${user?.username}",
             style: AppText.subtitle1,
           ),
           SizedBox(
             height: 12,
           ),
           Text(
-            AppStrings.location,
+            "${user?.location?.name}",
             style: AppText.subtitle1,
           ),
           SizedBox(

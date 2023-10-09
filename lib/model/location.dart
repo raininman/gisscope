@@ -1,19 +1,12 @@
 class Location {
-  Location(this.lat, this.lng, this.name);
-
   final double lat;
   final double lng;
   final String name;
 
+  Location(this.lat, this.lng, this.name);
   factory Location.fromJson(Map<String, dynamic> json) => Location(
-        json['lat'] as double,
-        json['lng'] as double,
-        json['name'] as String,
+        json['lat'],
+        json['lng'],
+        json['name'],
       );
-
-  Map<String, dynamic> toJson() => {
-        'lat': lat,
-        'lng': lng,
-        'name': name,
-      };
 }
