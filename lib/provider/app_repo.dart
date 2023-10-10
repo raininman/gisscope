@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:gisscope/model/user.dart';
+import 'package:gisscope/data/model/user.dart';
 
 class AppRepo extends ChangeNotifier {
   String? _token;

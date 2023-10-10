@@ -1,4 +1,4 @@
-import 'package:gisscope/model/user.dart';
+import 'package:gisscope/data/model/user.dart';
 
 class LoginResponse {
   final User user;

@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:gisscope/config/app_config.dart';
+import 'package:gisscope/data/model/post.dart';
 import 'package:gisscope/styles/app_text.dart';
 
 class PostItem extends StatelessWidget {
-  final String user;
-  const PostItem({super.key, required this.user});
+  final Post post;
+  const PostItem({super.key, required this.post});
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +24,7 @@ class PostItem extends StatelessWidget {
                 width: 16,
               ),
               Text(
-                user,
+                "${post.owner?.firstname} ${post.owner?.lastname}",
                 style: AppText.body1,
               ),
             ],
@@ -30,14 +32,14 @@ class PostItem extends StatelessWidget {
           SizedBox(
             height: 12,
           ),
-          Image.asset(
-            "assets/temp/post1.png",
+          Image.network(
+            "${AppConfig.baseURL}/${post.image}",
           ),
           SizedBox(
             height: 12,
           ),
           Text(
-            "The sun is a daily reminder that we too can rise from the darkness, that we too can shine our own light 🌞💖",
+            post.message ?? '',
             style: AppText.body1,
           )
         ],

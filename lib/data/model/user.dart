@@ -1,4 +1,4 @@
-import 'package:gisscope/model/location.dart';
+import 'package:gisscope/data/model/location.dart';
 
 class User {
   final int id;
