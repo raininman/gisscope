@@ -3,11 +3,13 @@ import 'package:gisscope/styles/app_colors.dart';
 
 class AppTextField extends StatelessWidget {
   final String hint;
-  const AppTextField({super.key, required this.hint});
+  final ValueChanged<String>? onChange;
+  const AppTextField({super.key, required this.hint, this.onChange});
 
   @override
   Widget build(BuildContext context) {
     return TextField(
+      onChanged: onChange,
       decoration: InputDecoration(
         hintText: hint,
         labelText: hint,

@@ -29,12 +29,14 @@ class PostItem extends StatelessWidget {
               ),
             ],
           ),
-          SizedBox(
-            height: 12,
-          ),
-          Image.network(
-            "${AppConfig.baseURL}/${post.image}",
-          ),
+          if (post.image != null) ...[
+            SizedBox(
+              height: 12,
+            ),
+            Image.network(
+              "${AppConfig.baseURL}/${post.image}",
+            ),
+          ],
           SizedBox(
             height: 12,
           ),

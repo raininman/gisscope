@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gisscope/components/app_bottom_navigation_item.dart';
+import 'package:gisscope/components/new_post_modal.dart';
 import 'package:gisscope/pages/home_page.dart';
 import 'package:gisscope/pages/profile_page.dart';
 import 'package:gisscope/styles/app_colors.dart';
@@ -21,6 +22,17 @@ class _MainPageState extends State<MainPage> {
       extendBody: true,
       bottomNavigationBar: AppBottomNavigationBar(
         onTap: (Menus value) {
+          if (value == Menus.add) {
+            showModalBottomSheet(
+              context: context,
+              isScrollControlled: true,
+              backgroundColor: Colors.transparent,
+              builder: (context) {
+                return NewPostModal();
+              },
+            );
+            return;
+          }
           setState(() {
             currentIndex = value;
           });
