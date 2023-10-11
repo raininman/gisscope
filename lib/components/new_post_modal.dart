@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gisscope/components/app_text_field.dart';
+import 'package:gisscope/config/app_strings.dart';
 import 'package:gisscope/provider/app_repo.dart';
 import 'package:gisscope/provider/post_provider.dart';
 import 'package:gisscope/styles/app_colors.dart';
@@ -23,14 +24,14 @@ class NewPostModal extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           Text(
-            'Insert Message',
+            AppStrings.insertMessage,
             style: AppText.headerSemibold,
           ),
           SizedBox(
             height: 16,
           ),
           AppTextField(
-            hint: "Message",
+            hint: AppStrings.message,
             onChange: (value) {
               context.read<PostProvider>().message = value;
             },
@@ -39,7 +40,7 @@ class NewPostModal extends StatelessWidget {
             height: 16,
           ),
           Text(
-            'Add Image',
+            AppStrings.addImage,
             style: AppText.headerSemibold,
           ),
           SizedBox(
@@ -56,21 +57,28 @@ class NewPostModal extends StatelessWidget {
               borderRadius: BorderRadius.all(Radius.circular(16)),
             ),
             child: Center(
-              child: Text("Upload from gallery"),
+              child: Text(
+                AppStrings.uploadFromGallery,
+                style: AppText.body1,
+              ),
             ),
           ),
           SizedBox(
             height: 16,
           ),
           Text(
-            "Or",
+            AppStrings.or,
             style: AppText.headerSemibold,
           ),
           SizedBox(height: 16),
           OutlinedButton(
+            style: OutlinedButton.styleFrom(
+              foregroundColor: AppColors.white,
+              side: BorderSide(width: 2, color: AppColors.white),
+            ),
             onPressed: () {},
             child: Text(
-              "Camera",
+              AppStrings.camera,
               style: AppText.body1,
             ),
           ),
@@ -78,6 +86,10 @@ class NewPostModal extends StatelessWidget {
             height: 16,
           ),
           ElevatedButton(
+            style: ElevatedButton.styleFrom(
+              backgroundColor: AppColors.primary,
+              foregroundColor: AppColors.black,
+            ),
             onPressed: () {
               context
                   .read<PostProvider>()
@@ -85,7 +97,7 @@ class NewPostModal extends StatelessWidget {
                   .then((value) => Navigator.of(context).pop());
             },
             child: Text(
-              "Upload Post",
+              AppStrings.uploadPost,
               style: AppText.body1,
             ),
           ),

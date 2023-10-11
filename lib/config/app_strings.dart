@@ -16,7 +16,7 @@ class AppStrings {
   static const orSignIn = "Or sign in with";
   static const loginGoogle = "Login with Google";
   static const loginFacebook = "Login with Facebook";
-  static const dontHaveAccount = "Don't have account?" ;
+  static const dontHaveAccount = "Don't have account?";
   static const signUp = "Sign up";
   static const firstName = "First Name";
   static const lastName = "Last Name";
@@ -28,5 +28,11 @@ class AppStrings {
   static const female = "Female";
   static const other = "Other";
   static const nearby = "Nearby";
-  
+  static const insertMessage = "Insert Message";
+  static const message = "Message";
+  static const addImage = "Add Image";
+  static const uploadFromGallery = "Upload from gallery";
+  static const or = "Or";
+  static const camera = "Camera";
+  static const uploadPost = "Upload Post";
 }

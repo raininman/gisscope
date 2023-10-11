@@ -115,7 +115,7 @@ class LoginPage extends StatelessWidget {
                       });
                     },
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color.fromRGBO(251, 213, 18, 1),
+                      backgroundColor: AppColors.primary,
                       foregroundColor: AppColors.black,
                     ),
                     child: const Text(AppStrings.login),
