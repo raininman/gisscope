@@ -1,4 +1,3 @@
-import 'package:gisscope/data/model/post.dart';
 import 'package:gisscope/data/service/base_service.dart';
 
 class CreatePostService extends BaseService<void> {

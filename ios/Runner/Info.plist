@@ -47,5 +47,9 @@
 	<true/>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
+	<key>NSPhotoLibraryUsageDescription</key>
+  <string>GisScope need access to gallery</string>
+  <key>NSCameraUsageDescription</key>
+  <string>GisScope need access to camera</string>
 </dict>
 </plist>

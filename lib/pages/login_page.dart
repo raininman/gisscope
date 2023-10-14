@@ -108,10 +108,29 @@ class LoginPage extends StatelessWidget {
                   width: double.infinity,
                   child: ElevatedButton(
                     onPressed: () {
-                      context.read<LoginProvider>().login().then((value) {
-                        context.read<AppRepo>().user = value.user;
-                        context.read<AppRepo>().token = value.token;
-                        Navigator.of(context).pushReplacementNamed('/main');
+                      context
+                          .read<LoginProvider>()
+                          .checkConnection()
+                          .then((result) {
+                        if (result ==
+                            'MySQLClientException: Can not execute query: connection closed') {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text("Server not working. Try again later"),
+                            ),
+                          );
+                        } else {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text("Logged in succefull! Please wait"),
+                            ),
+                          );
+                          context.read<LoginProvider>().login().then((value) {
+                            context.read<AppRepo>().user = value.user;
+                            context.read<AppRepo>().token = value.token;
+                            Navigator.of(context).pushReplacementNamed('/main');
+                          });
+                        }
                       });
                     },
                     style: ElevatedButton.styleFrom(
