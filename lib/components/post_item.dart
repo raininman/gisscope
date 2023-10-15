@@ -35,6 +35,11 @@ class PostItem extends StatelessWidget {
             ),
             Image.network(
               "${AppConfig.baseURL}/${post.image}",
+              errorBuilder: (context, exception, stackTrace) {
+                return Image.asset(
+                  "assets/temp/post1.png",
+                );
+              },
             ),
           ],
           SizedBox(

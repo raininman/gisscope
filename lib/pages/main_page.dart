@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gisscope/components/app_bottom_navigation_item.dart';
 import 'package:gisscope/components/new_post_modal.dart';
+import 'package:gisscope/pages/chat_page.dart';
 import 'package:gisscope/pages/home_page.dart';
 import 'package:gisscope/pages/profile_page.dart';
 import 'package:gisscope/styles/app_colors.dart';
@@ -50,9 +51,7 @@ class _MainPageState extends State<MainPage> {
     Center(
       child: Text("Add"),
     ),
-    Center(
-      child: Text("Messages"),
-    ),
+    ChatPage(),
     ProfilePage(),
   ];
 }
