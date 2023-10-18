@@ -27,4 +27,9 @@ class AppRepo extends ChangeNotifier {
       notifyListeners();
     });
   }
+
+  sendMessage(String message) {
+    _channel?.sink.add(message);
+    notifyListeners();
+  }
 }

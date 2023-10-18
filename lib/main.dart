@@ -4,6 +4,7 @@ import 'package:gisscope/config/app_routes.dart';
 import 'package:gisscope/config/app_strings.dart';
 import 'package:gisscope/provider/app_repo.dart';
 import 'package:gisscope/provider/post_provider.dart';
+import 'package:gisscope/provider/user_provider.dart';
 import 'package:gisscope/styles/app_colors.dart';
 import 'package:provider/provider.dart';
 
@@ -17,6 +18,9 @@ void main() async {
         ),
         ChangeNotifierProvider<PostProvider>(
           create: (context) => PostProvider(),
+        ),
+        ChangeNotifierProvider<UserProvider>(
+          create: (context) => UserProvider(),
         ),
       ],
       child: MyApp(),
