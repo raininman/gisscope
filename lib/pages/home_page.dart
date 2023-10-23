@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:gisscope/components/post_item.dart';
 import 'package:gisscope/components/toolbar.dart';
-import 'package:gisscope/config/app_routes.dart';
 import 'package:gisscope/config/app_strings.dart';
 import 'package:gisscope/provider/post_provider.dart';
 import 'package:provider/provider.dart';
 
 class HomePage extends StatefulWidget {
-  HomePage({super.key});
+  const HomePage({super.key});
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -23,16 +22,8 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: Toolbar(
+      appBar: const Toolbar(
         title: AppStrings.appName,
-        actions: [
-          IconButton(
-            icon: Icon(Icons.location_on_outlined),
-            onPressed: () {
-              Navigator.of(context).pushNamed(AppRoutes.nearby);
-            },
-          ),
-        ],
       ),
       body: Consumer<PostProvider>(
         builder: (context, value, child) {
@@ -41,7 +32,7 @@ class _HomePageState extends State<HomePage> {
               return PostItem(post: value.list[index]);
             },
             separatorBuilder: (BuildContext context, int index) {
-              return SizedBox(height: 24);
+              return const SizedBox(height: 24);
             },
             itemCount: value.list.length,
           );

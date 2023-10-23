@@ -19,16 +19,16 @@ class ChatOtherItem extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          UserAvatar(),
-          SizedBox(
+          const UserAvatar(),
+          const SizedBox(
             width: 8,
           ),
           Expanded(
             child: Align(
               alignment: Alignment.centerLeft,
               child: Container(
-                padding: EdgeInsets.all(10),
-                decoration: BoxDecoration(
+                padding: const EdgeInsets.all(10),
+                decoration: const BoxDecoration(
                     color: AppColors.white,
                     borderRadius: BorderRadius.only(
                       topRight: Radius.circular(20),
@@ -40,7 +40,7 @@ class ChatOtherItem extends StatelessWidget {
                   children: [
                     Text("${chat.user.firstname} ${chat.user.lastname}",
                         style: AppText.body1Semibold.copyWith(color: AppColors.fontColor2)),
-                        SizedBox(height: 6,),
+                        const SizedBox(height: 6,),
                     Text(
                       chat.message,
                       style: AppText.body1.copyWith(color: AppColors.black),

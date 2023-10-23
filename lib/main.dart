@@ -23,7 +23,7 @@ void main() async {
           create: (context) => UserProvider(),
         ),
       ],
-      child: MyApp(),
+      child: const MyApp(),
     ),
   );
 }

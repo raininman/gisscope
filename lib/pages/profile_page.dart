@@ -36,13 +36,13 @@ class ProfilePage extends StatelessWidget {
             },
             itemBuilder: (context) {
               return [
-                PopupMenuItem(
-                  child: Text(AppStrings.edit),
+                const PopupMenuItem(
                   value: ProfileMenu.edit,
+                  child: Text(AppStrings.edit),
                 ),
-                PopupMenuItem(
-                  child: Text(AppStrings.logOut),
+                const PopupMenuItem(
                   value: ProfileMenu.logout,
+                  child: Text(AppStrings.logOut),
                 ),
               ];
             },
@@ -51,27 +51,27 @@ class ProfilePage extends StatelessWidget {
       ),
       body: Column(
         children: [
-          UserAvatar(
+          const UserAvatar(
             size: 90,
           ),
-          SizedBox(
+          const SizedBox(
             height: 24,
           ),
           Text(
             "${user?.username}",
             style: AppText.subtitle1,
           ),
-          SizedBox(
+          const SizedBox(
             height: 12,
           ),
           Text(
             "${user?.location?.name}",
             style: AppText.subtitle1,
           ),
-          SizedBox(
+          const SizedBox(
             height: 24,
           ),
-          Row(
+          const Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               Column(
@@ -112,7 +112,7 @@ class ProfilePage extends StatelessWidget {
               ),
             ],
           ),
-          Divider(
+          const Divider(
             thickness: 1,
             height: 12,
           )

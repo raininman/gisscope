@@ -30,7 +30,7 @@ class _NearbyPageState extends State<NearbyPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: Toolbar(title: AppStrings.nearby),
+      appBar: const Toolbar(title: AppStrings.nearby),
       body: FutureBuilder(
         builder: (context, snapshot) {
           if (!snapshot.hasData) {
@@ -40,7 +40,7 @@ class _NearbyPageState extends State<NearbyPage> {
           return Stack(children: [
             FlutterMap(
               options: MapOptions(
-                center: LatLng(53.9006, 27.5590),
+                center: const LatLng(53.9006, 27.5590),
                 zoom: 10,
               ),
               children: [
@@ -66,7 +66,7 @@ class _NearbyPageState extends State<NearbyPage> {
                                     }
                                   }
                                   pageController.animateToPage(page,
-                                      duration: Duration(milliseconds: 500),
+                                      duration: const Duration(milliseconds: 500),
                                       curve: Curves.easeIn);
                                 },
                                 child: Column(

@@ -10,17 +10,17 @@ class UserPageItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(18),
-      margin: EdgeInsets.symmetric(vertical: 24, horizontal: 12),
-      decoration: BoxDecoration(
+      padding: const EdgeInsets.all(18),
+      margin: const EdgeInsets.symmetric(vertical: 24, horizontal: 12),
+      decoration: const BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.all(Radius.circular(14)),
       ),
       child: Column(children: [
         Row(
           children: [
-            UserAvatar(size: 50),
-            SizedBox(
+            const UserAvatar(size: 50),
+            const SizedBox(
               width: 14,
             ),
             Column(
@@ -30,17 +30,17 @@ class UserPageItem extends StatelessWidget {
                   '${user.firstname} ${user.lastname}',
                   style: AppText.body1Semibold.copyWith(color: Colors.black),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 6,
-                ),
-                Text(
-                  user.location?.name ?? '',
-                  style: AppText.body1.copyWith(color: Colors.black),
                 ),
               ],
             ),
           ],
-        )
+        ),
+        Text(
+          user.location?.name ?? '',
+          style: AppText.body1.copyWith(color: Colors.black),
+        ),
       ]),
     );
   }

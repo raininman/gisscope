@@ -3,6 +3,7 @@ import 'package:gisscope/components/app_bottom_navigation_item.dart';
 import 'package:gisscope/components/new_post_modal.dart';
 import 'package:gisscope/pages/chat_page.dart';
 import 'package:gisscope/pages/home_page.dart';
+import 'package:gisscope/pages/nearby_page.dart';
 import 'package:gisscope/pages/profile_page.dart';
 import 'package:gisscope/styles/app_colors.dart';
 
@@ -30,7 +31,7 @@ class _MainPageState extends State<MainPage> {
               isScrollControlled: true,
               backgroundColor: Colors.transparent,
               builder: (context) {
-                return NewPostModal();
+                return const NewPostModal();
               },
             );
             return;
@@ -45,19 +46,17 @@ class _MainPageState extends State<MainPage> {
   }
 
   final pages = [
-    HomePage(),
-    Center(
-      child: Text("Favorite"),
-    ),
-    Center(
+    const HomePage(),
+    const NearbyPage(),
+    const Center(
       child: Text("Add"),
     ),
-    ChatPage(),
-    ProfilePage(),
+    const ChatPage(),
+    const ProfilePage(),
   ];
 }
 
-enum Menus { home, favorite, add, messages, profile }
+enum Menus { home, nearBy, add, messages, profile }
 
 class AppBottomNavigationBar extends StatelessWidget {
   final Menus currentIndex;
@@ -69,7 +68,7 @@ class AppBottomNavigationBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: 87,
-      margin: EdgeInsets.all(24),
+      margin: const EdgeInsets.all(24),
       child: Stack(
         children: [
           Positioned(
@@ -78,7 +77,7 @@ class AppBottomNavigationBar extends StatelessWidget {
             top: 17,
             child: Container(
               height: 70,
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 color: AppColors.white,
                 borderRadius: BorderRadius.all(
                   Radius.circular(25),
@@ -96,13 +95,13 @@ class AppBottomNavigationBar extends StatelessWidget {
                   ),
                   Expanded(
                     child: AppBottomNavigationBarItem(
-                      onPressed: () => onTap(Menus.favorite),
-                      icon: Icons.favorite_border_outlined,
+                      onPressed: () => onTap(Menus.nearBy),
+                      icon: Icons.location_on_outlined,
                       current: currentIndex,
-                      name: Menus.favorite,
+                      name: Menus.nearBy,
                     ),
                   ),
-                  Spacer(),
+                  const Spacer(),
                   Expanded(
                     child: AppBottomNavigationBarItem(
                       onPressed: () => onTap(Menus.messages),
@@ -130,7 +129,7 @@ class AppBottomNavigationBar extends StatelessWidget {
             child: Container(
               height: 64,
               width: 64,
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 color: AppColors.primary,
                 shape: BoxShape.circle,
               ),

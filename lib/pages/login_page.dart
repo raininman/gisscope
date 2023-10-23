@@ -7,7 +7,7 @@ import 'package:gisscope/styles/app_colors.dart';
 import 'package:provider/provider.dart';
 
 class LoginPage extends StatelessWidget {
-  LoginPage({super.key});
+  const LoginPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -60,7 +60,7 @@ class LoginPage extends StatelessWidget {
                     fillColor: AppColors.fieldColor,
                   ),
                   onChanged: (value) {
-                    context.read<LoginProvider>().username = value;
+                    context.read<LoginProvider>().username = value.trim();
                   },
                 ),
                 const SizedBox(
@@ -86,7 +86,7 @@ class LoginPage extends StatelessWidget {
                     fillColor: AppColors.fieldColor,
                   ),
                   onChanged: (value) {
-                    context.read<LoginProvider>().password = value;
+                    context.read<LoginProvider>().password = value.trim();
                   },
                 ),
                 Align(
@@ -117,7 +117,7 @@ class LoginPage extends StatelessWidget {
                             content: Text("Logged in succefull! Please wait"),
                           ),
                         );
-                        Navigator.of(context).pushReplacementNamed('/main');
+                        Navigator.of(context).pushReplacementNamed(AppRoutes.main);
                       }).catchError((error) {
                         ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(
@@ -223,7 +223,7 @@ class LoginPage extends StatelessWidget {
                           foregroundColor: AppColors.primary),
                       onPressed: () {
                         Navigator.of(context)
-                            .pushReplacementNamed(AppRoutes.signUp);
+                            .pushNamed(AppRoutes.signUp);
                       },
                       child: const Text(
                         AppStrings.signUp,

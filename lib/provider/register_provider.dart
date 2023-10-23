@@ -6,11 +6,21 @@ class RegisterProvider extends ChangeNotifier {
   var password;
   var firstname;
   var lastname;
-  var location = Map<String, dynamic>.from({"name": "Minsk", "lat": 0.0, "lng": 0.0});
+  var lat;
+  var lng;
+  var locationName;
 
   Future<String> register() async {
-    return RegisterService(
-            this.username, this.password, this.lastname, this.firstname, this.location)
+    return RegisterService(username, password, lastname,
+            firstname, toJson())
         .call();
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['lat'] = lat;
+    data['lng'] = lng;
+    data['name'] = locationName;
+    return data;
   }
 }

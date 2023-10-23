@@ -10,6 +10,7 @@ class LoginService extends BaseService{
   final String password;
 
   LoginService(this.username, this.password);
+  @override
   Future<LoginResponse> call() async {
     final result = await http.post(Uri.parse('${AppConfig.baseURL}/login'),
         body: jsonEncode({

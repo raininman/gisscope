@@ -13,6 +13,6 @@ class LoginProvider extends ChangeNotifier {
   }
 
   Future<LoginResponse> login() async {
-    return LoginService(this.username, this.password).call();
+    return LoginService(username, password).call();
   }
 }

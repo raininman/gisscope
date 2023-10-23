@@ -18,7 +18,7 @@ class Utils {
       aspectRatioPresets: [
         CropAspectRatioPreset.square,
       ],
-      aspectRatio: CropAspectRatio(ratioX: 1, ratioY: 1),
+      aspectRatio: const CropAspectRatio(ratioX: 1, ratioY: 1),
     );
   }
 }

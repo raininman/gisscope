@@ -9,7 +9,7 @@ import 'package:gisscope/styles/app_text.dart';
 enum Gender { none, male, female, other }
 
 class EditProfilePage extends StatefulWidget {
-  EditProfilePage({super.key});
+  const EditProfilePage({super.key});
 
   @override
   State<EditProfilePage> createState() => _EditProfilePageState();
@@ -21,7 +21,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: Toolbar(title: AppStrings.editProfile),
+      appBar: const Toolbar(title: AppStrings.editProfile),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(24.0),
@@ -29,8 +29,8 @@ class _EditProfilePageState extends State<EditProfilePage> {
             children: [
               Stack(
                 children: [
-                  Padding(
-                    padding: const EdgeInsets.all(10.0),
+                  const Padding(
+                    padding: EdgeInsets.all(10.0),
                     child: UserAvatar(
                       size: 120,
                     ),
@@ -39,14 +39,14 @@ class _EditProfilePageState extends State<EditProfilePage> {
                     right: 0,
                     bottom: 0,
                     child: Container(
-                      padding: EdgeInsets.all(5),
-                      decoration: BoxDecoration(
+                      padding: const EdgeInsets.all(5),
+                      decoration: const BoxDecoration(
                         color: AppColors.primary,
                         borderRadius: BorderRadius.all(
                           Radius.circular(6),
                         ),
                       ),
-                      child: Icon(
+                      child: const Icon(
                         Icons.photo_camera_outlined,
                         size: 18,
                         color: AppColors.black,
@@ -55,41 +55,41 @@ class _EditProfilePageState extends State<EditProfilePage> {
                   ),
                 ],
               ),
-              SizedBox(
+              const SizedBox(
                 height: 60,
               ),
-              AppTextField(hint: AppStrings.firstName),
-              SizedBox(
+              const AppTextField(hint: AppStrings.firstName),
+              const SizedBox(
                 height: 16,
               ),
-              AppTextField(hint: AppStrings.lastName),
-              SizedBox(
+              const AppTextField(hint: AppStrings.lastName),
+              const SizedBox(
                 height: 16,
               ),
-              AppTextField(hint: AppStrings.phoneNumber),
-              SizedBox(
+              const AppTextField(hint: AppStrings.phoneNumber),
+              const SizedBox(
                 height: 16,
               ),
-              AppTextField(hint: AppStrings.location),
-              SizedBox(
+              const AppTextField(hint: AppStrings.location),
+              const SizedBox(
                 height: 16,
               ),
-              AppTextField(hint: AppStrings.birthday),
-              SizedBox(
+              const AppTextField(hint: AppStrings.birthday),
+              const SizedBox(
                 height: 16,
               ),
               Container(
-                padding: EdgeInsets.only(left: 16, right: 16, top: 8),
+                padding: const EdgeInsets.only(left: 16, right: 16, top: 8),
                 decoration: BoxDecoration(
                   color: AppColors.fieldColor,
-                  borderRadius: BorderRadius.all(
+                  borderRadius: const BorderRadius.all(
                     Radius.circular(12),
                   ),
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
+                    const Text(
                       AppStrings.gender,
                       style: AppText.body2,
                     ),
@@ -98,10 +98,10 @@ class _EditProfilePageState extends State<EditProfilePage> {
                         Expanded(
                           child: RadioListTile(
                               contentPadding: EdgeInsets.zero,
-                              visualDensity: VisualDensity(
+                              visualDensity: const VisualDensity(
                                   horizontal: VisualDensity.minimumDensity,
                                   vertical: VisualDensity.minimumDensity),
-                              title: Text(AppStrings.male),
+                              title: const Text(AppStrings.male),
                               value: Gender.male,
                               groupValue: gender,
                               onChanged: (value) {
@@ -113,11 +113,11 @@ class _EditProfilePageState extends State<EditProfilePage> {
                         Expanded(
                           child: RadioListTile(
                               contentPadding: EdgeInsets.zero,
-                              visualDensity: VisualDensity(
+                              visualDensity: const VisualDensity(
                                 horizontal: VisualDensity.minimumDensity,
                                 vertical: VisualDensity.minimumDensity,
                               ),
-                              title: Text(AppStrings.female),
+                              title: const Text(AppStrings.female),
                               value: Gender.female,
                               groupValue: gender,
                               onChanged: (value) {
@@ -129,11 +129,11 @@ class _EditProfilePageState extends State<EditProfilePage> {
                         Expanded(
                           child: RadioListTile(
                               contentPadding: EdgeInsets.zero,
-                              visualDensity: VisualDensity(
+                              visualDensity: const VisualDensity(
                                 horizontal: VisualDensity.minimumDensity,
                                 vertical: VisualDensity.minimumDensity,
                               ),
-                              title: Text(AppStrings.other),
+                              title: const Text(AppStrings.other),
                               value: Gender.other,
                               groupValue: gender,
                               onChanged: (value) {

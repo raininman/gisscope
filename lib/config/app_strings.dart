@@ -35,4 +35,6 @@ class AppStrings {
   static const or = "Or";
   static const camera = "Camera";
   static const uploadPost = "Upload Post";
+  static const chat = "Chat";
+  static const enterMessage = "Enter Message";
 }

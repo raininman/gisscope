@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gisscope/config/app_config.dart';
 import 'package:gisscope/data/model/post.dart';
+import 'package:gisscope/pages/user_page.dart';
 import 'package:gisscope/styles/app_text.dart';
 
 class PostItem extends StatelessWidget {
@@ -9,47 +10,57 @@ class PostItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.all(24),
-      child: Column(
-        children: [
-          Row(
-            children: [
-              Image.asset(
-                "assets/temp/user1.jpg",
-                width: 40,
-                height: 40,
+    return GestureDetector(
+      onTap: () {
+        final user = post.owner!;
+        Route route = MaterialPageRoute(
+            builder: (context) => UserPage(
+                  user: user,
+                ));
+        Navigator.push(context, route);
+      },
+      child: Padding(
+        padding: const EdgeInsets.all(24),
+        child: Column(
+          children: [
+            Row(
+              children: [
+                Image.asset(
+                  "assets/temp/user1.jpg",
+                  width: 40,
+                  height: 40,
+                ),
+                const SizedBox(
+                  width: 16,
+                ),
+                Text(
+                  "${post.owner?.firstname} ${post.owner?.lastname}",
+                  style: AppText.body1,
+                ),
+              ],
+            ),
+            if (post.image != null) ...[
+              const SizedBox(
+                height: 12,
               ),
-              SizedBox(
-                width: 16,
-              ),
-              Text(
-                "${post.owner?.firstname} ${post.owner?.lastname}",
-                style: AppText.body1,
+              Image.network(
+                "${AppConfig.baseURL}${post.image}",
+                errorBuilder: (context, exception, stackTrace) {
+                  return Image.asset(
+                    "assets/temp/post1.png",
+                  );
+                },
               ),
             ],
-          ),
-          if (post.image != null) ...[
-            SizedBox(
+            const SizedBox(
               height: 12,
             ),
-            Image.network(
-              "${AppConfig.baseURL}/${post.image}",
-              errorBuilder: (context, exception, stackTrace) {
-                return Image.asset(
-                  "assets/temp/post1.png",
-                );
-              },
-            ),
+            Text(
+              post.message ?? '',
+              style: AppText.body1,
+            )
           ],
-          SizedBox(
-            height: 12,
-          ),
-          Text(
-            post.message ?? '',
-            style: AppText.body1,
-          )
-        ],
+        ),
       ),
     );
   }

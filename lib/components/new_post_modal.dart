@@ -16,21 +16,21 @@ class NewPostModal extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
           color: AppColors.background,
           borderRadius: BorderRadius.only(
             topLeft: Radius.circular(24),
             topRight: Radius.circular(24),
           )),
-      padding: EdgeInsets.all(24),
+      padding: const EdgeInsets.all(24),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Text(
+          const Text(
             AppStrings.insertMessage,
             style: AppText.headerSemibold,
           ),
-          SizedBox(
+          const SizedBox(
             height: 16,
           ),
           AppTextField(
@@ -39,14 +39,14 @@ class NewPostModal extends StatelessWidget {
               context.read<PostProvider>().message = value;
             },
           ),
-          SizedBox(
+          const SizedBox(
             height: 16,
           ),
-          Text(
+          const Text(
             AppStrings.addImage,
             style: AppText.headerSemibold,
           ),
-          SizedBox(
+          const SizedBox(
             height: 16,
           ),
           Consumer<PostProvider>(
@@ -63,17 +63,17 @@ class NewPostModal extends StatelessWidget {
                       color: AppColors.white,
                       width: 2,
                     ),
-                    borderRadius: BorderRadius.all(Radius.circular(16)),
+                    borderRadius: const BorderRadius.all(Radius.circular(16)),
                   ),
                   child: value.imagePath == null
-                      ? Center(
+                      ? const Center(
                           child: Text(
                             AppStrings.uploadFromGallery,
                             style: AppText.body1,
                           ),
                         )
                       : ClipRRect(
-                          borderRadius: BorderRadius.all(Radius.circular(16)),
+                          borderRadius: const BorderRadius.all(Radius.circular(16)),
                           child: Stack(
                             children: [
                               Image.file(
@@ -83,7 +83,7 @@ class NewPostModal extends StatelessWidget {
                                   onPressed: () {
                                     value.deleteImage();
                                   },
-                                  icon: Icon(
+                                  icon: const Icon(
                                     Icons.highlight_remove,
                                     color: AppColors.white,
                                   ))
@@ -94,28 +94,28 @@ class NewPostModal extends StatelessWidget {
               );
             },
           ),
-          SizedBox(
+          const SizedBox(
             height: 16,
           ),
-          Text(
+          const Text(
             AppStrings.or,
             style: AppText.headerSemibold,
           ),
-          SizedBox(height: 16),
+          const SizedBox(height: 16),
           OutlinedButton(
             style: OutlinedButton.styleFrom(
               foregroundColor: AppColors.white,
-              side: BorderSide(width: 2, color: AppColors.white),
+              side: const BorderSide(width: 2, color: AppColors.white),
             ),
             onPressed: () {
               context.read<PostProvider>().pickImage(ImageSource.camera);
             },
-            child: Text(
+            child: const Text(
               AppStrings.camera,
               style: AppText.body1,
             ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 16,
           ),
           ElevatedButton(
@@ -129,7 +129,7 @@ class NewPostModal extends StatelessWidget {
                   .createPost(context.read<AppRepo>().token!)
                   .then((value) => Navigator.of(context).pop());
             },
-            child: Text(
+            child: const Text(
               AppStrings.uploadPost,
               style: AppText.body1,
             ),

@@ -13,6 +13,7 @@ class RegisterService extends BaseService{
 
 
   RegisterService(this.username, this.password, this.firstname, this.lastname, this.location);
+  @override
   Future<String> call() async {
     final result = await http.post(Uri.parse('${AppConfig.baseURL}/signup'),
         body: jsonEncode({

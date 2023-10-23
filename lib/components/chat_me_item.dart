@@ -23,8 +23,8 @@ class ChatMeItem extends StatelessWidget {
             child: Align(
               alignment: Alignment.centerRight,
               child: Container(
-                padding: EdgeInsets.all(10),
-                decoration: BoxDecoration(
+                padding: const EdgeInsets.all(10),
+                decoration: const BoxDecoration(
                     color: AppColors.primary,
                     borderRadius: BorderRadius.only(
                       topLeft: Radius.circular(20),
@@ -38,10 +38,10 @@ class ChatMeItem extends StatelessWidget {
               ),
             ),
           ),
-          SizedBox(
+          const SizedBox(
             width: 8,
           ),
-          UserAvatar(),
+          const UserAvatar(),
         ],
       ),
     );
