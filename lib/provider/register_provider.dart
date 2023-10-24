@@ -12,11 +12,11 @@ class RegisterProvider extends ChangeNotifier {
 
   Future<String> register() async {
     return RegisterService(username, password, lastname,
-            firstname, toJson())
+            firstname, mapLocation())
         .call();
   }
 
-  Map<String, dynamic> toJson() {
+  Map<String, dynamic> mapLocation() {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['lat'] = lat;
     data['lng'] = lng;

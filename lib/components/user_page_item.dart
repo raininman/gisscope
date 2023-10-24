@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gisscope/components/user_avatar.dart';
+import 'package:gisscope/config/app_config.dart';
 import 'package:gisscope/data/model/user.dart';
 import 'package:gisscope/styles/app_text.dart';
 
@@ -19,7 +20,7 @@ class UserPageItem extends StatelessWidget {
       child: Column(children: [
         Row(
           children: [
-            const UserAvatar(size: 50),
+            UserAvatar(size: 50, path: '${AppConfig.baseURL}${user.avatar}'),
             const SizedBox(
               width: 14,
             ),
@@ -32,6 +33,10 @@ class UserPageItem extends StatelessWidget {
                 ),
                 const SizedBox(
                   height: 6,
+                ),
+                Text(
+                  '${user.gender}',
+                  style: AppText.body1Semibold.copyWith(color: Colors.black),
                 ),
               ],
             ),

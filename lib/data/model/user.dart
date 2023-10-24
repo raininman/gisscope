@@ -10,6 +10,7 @@ class User {
   final String? gender;
   final bool? visibleGender;
   final Location? location;
+  final String? avatar;
 
   User(
     this.id,
@@ -21,6 +22,7 @@ class User {
     this.gender,
     this.visibleGender,
     this.location,
+    this.avatar,
   );
 
   factory User.fromJson(Map<String, dynamic> json) => User(
@@ -33,5 +35,6 @@ class User {
         json['gender'],
         json['visibleGender'],
         json['location'] != null ? Location.fromJson(json['location']) : null,
+        json['avatar'],
       );
 }

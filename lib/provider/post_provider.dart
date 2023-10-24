@@ -17,6 +17,16 @@ class PostProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  List<Post> getPostsByUserId(int id) {
+    List<Post> filteredPosts = [];
+    for (int i = 0; i < list.length; i++) {
+      if (list[i].owner!.id == id) {
+        filteredPosts.add(list[i]);
+      }
+    }
+    return filteredPosts;
+  }
+
   Future<void> createPost(String token) async {
     String? image;
     if (imagePath != null) {

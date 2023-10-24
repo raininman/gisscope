@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gisscope/components/user_avatar.dart';
 import 'package:gisscope/config/app_config.dart';
 import 'package:gisscope/data/model/post.dart';
 import 'package:gisscope/pages/user_page.dart';
@@ -6,18 +7,21 @@ import 'package:gisscope/styles/app_text.dart';
 
 class PostItem extends StatelessWidget {
   final Post post;
-  const PostItem({super.key, required this.post});
+  final bool? tapCheck;
+  const PostItem({super.key, required this.post, this.tapCheck});
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        final user = post.owner!;
-        Route route = MaterialPageRoute(
-            builder: (context) => UserPage(
-                  user: user,
-                ));
-        Navigator.push(context, route);
+        if (tapCheck == null) {
+          final user = post.owner!;
+          Route route = MaterialPageRoute(
+              builder: (context) => UserPage(
+                    user: user,
+                  ));
+          Navigator.push(context, route);
+        }
       },
       child: Padding(
         padding: const EdgeInsets.all(24),
@@ -25,11 +29,7 @@ class PostItem extends StatelessWidget {
           children: [
             Row(
               children: [
-                Image.asset(
-                  "assets/temp/user1.jpg",
-                  width: 40,
-                  height: 40,
-                ),
+                UserAvatar(size: 40, path: '${AppConfig.baseURL}${post.owner?.avatar}',),
                 const SizedBox(
                   width: 16,
                 ),

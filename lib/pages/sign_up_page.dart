@@ -134,6 +134,7 @@ class _SignUpPageState extends State<SignUpPage> {
                 ),
                 const SizedBox(height: 95),
                 AppTextField(
+                  keyboardType: TextInputType.name,
                   onFieldSubmitted: (_) {
                     _fieldFocusChange(context, _usernameFocus, _passFocus);
                   },
@@ -165,6 +166,7 @@ class _SignUpPageState extends State<SignUpPage> {
                 ),
                 const SizedBox(height: 26),
                 AppTextField(
+                  keyboardType: TextInputType.name,
                   onFieldSubmitted: (_) {
                     _fieldFocusChange(context, _lastnameFocus, _firstnameFocus);
                   },
@@ -175,6 +177,7 @@ class _SignUpPageState extends State<SignUpPage> {
                 ),
                 const SizedBox(height: 26),
                 AppTextField(
+                  keyboardType: TextInputType.name,
                   focusNode: _firstnameFocus,
                   validate: _validateName,
                   controller: _firstnameController,
@@ -192,7 +195,15 @@ class _SignUpPageState extends State<SignUpPage> {
                       backgroundColor: AppColors.white,
                       foregroundColor: AppColors.black,
                     ),
-                    child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [const Text("Get Location"), SizedBox(width: 6,), Icon(Icons.location_on_outlined)]),
+                    child: const Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          const Text("Get Location"),
+                          SizedBox(
+                            width: 6,
+                          ),
+                          Icon(Icons.location_on_outlined)
+                        ]),
                   ),
                 ),
                 const SizedBox(height: 95),

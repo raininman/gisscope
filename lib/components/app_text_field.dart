@@ -11,6 +11,7 @@ class AppTextField extends StatelessWidget {
   final TextEditingController? controller;
   final ValueChanged<String>? onChange;
   final FormFieldValidator<String>? validate;
+  final TextInputType? keyboardType;
   const AppTextField(
       {super.key,
       required this.hint,
@@ -21,11 +22,12 @@ class AppTextField extends StatelessWidget {
       this.obscureText,
       this.focusNode,
       this.autofocus,
-      this.onFieldSubmitted});
+      this.onFieldSubmitted, this.keyboardType});
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      keyboardType: keyboardType,
       onFieldSubmitted: onFieldSubmitted,
       autofocus: autofocus ?? false,
       focusNode: focusNode,

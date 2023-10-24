@@ -3,6 +3,7 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:gisscope/config/app_routes.dart';
 import 'package:gisscope/config/app_strings.dart';
 import 'package:gisscope/provider/app_repo.dart';
+import 'package:gisscope/provider/location_provider.dart';
 import 'package:gisscope/provider/post_provider.dart';
 import 'package:gisscope/provider/user_provider.dart';
 import 'package:gisscope/styles/app_colors.dart';
@@ -21,6 +22,9 @@ void main() async {
         ),
         ChangeNotifierProvider<UserProvider>(
           create: (context) => UserProvider(),
+        ),
+        ChangeNotifierProvider<LocationProvider>(
+          create: (context) => LocationProvider(),
         ),
       ],
       child: const MyApp(),

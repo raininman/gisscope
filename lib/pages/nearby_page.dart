@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:gisscope/components/toolbar.dart';
+import 'package:gisscope/components/user_avatar.dart';
 import 'package:gisscope/components/user_page_item.dart';
+import 'package:gisscope/config/app_config.dart';
 import 'package:gisscope/config/app_strings.dart';
 import 'package:gisscope/data/model/user.dart';
 import 'package:gisscope/provider/user_provider.dart';
@@ -98,10 +100,7 @@ class _NearbyPageState extends State<NearbyPage> {
                                           child: SizedBox(
                                             height: 60,
                                             width: 48,
-                                            child: Image.asset(
-                                              'assets/temp/user1.jpg',
-                                              fit: BoxFit.cover,
-                                            ),
+                                            child: UserAvatar(size:60, path: '${AppConfig.baseURL}${user.avatar}')
                                           ),
                                         ),
                                       ),

@@ -25,7 +25,7 @@ class _UserPageState extends State<UserPage> {
 
   @override
   Widget build(BuildContext context) {
-    final posts = context.read<PostProvider>().list;
+    final posts = context.read<PostProvider>().getPostsByUserId(widget.user.id);
     return Scaffold(
         body: CustomScrollView(
       controller: scrollController,
@@ -39,9 +39,7 @@ class _UserPageState extends State<UserPage> {
         SliverList(
           delegate: SliverChildBuilderDelegate(
             (context, index) {
-              return posts[index].owner!.id == widget.user.id
-                  ? PostItem(post: posts[index])
-                  : null;
+              return PostItem(post: posts[index]);
             },
             childCount: posts.length,
           ),

@@ -48,6 +48,19 @@ abstract class BaseService<T> {
     }
   }
 
+  Future<Map<String, dynamic>> put(String apiUrl,
+      {Map<String, dynamic>? body, String? token}) async {
+    try {
+      final response = await MyRequest(token).put(
+        _getV1Url(apiUrl),
+        body: jsonEncode(body),
+      );
+      return _handleResponse(response);
+    } catch (e) {
+      throw Exception(e);
+    }
+  }
+
   Map<String, dynamic> _handleResponse(http.Response response) {
     if (response.statusCode == 200) {
       return jsonDecode(response.body);
