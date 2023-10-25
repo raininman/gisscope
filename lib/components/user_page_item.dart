@@ -35,7 +35,7 @@ class UserPageItem extends StatelessWidget {
                   height: 6,
                 ),
                 Text(
-                  '${user.gender}',
+                  user.visibleGender ?? false ? user.gender ?? '' : '',
                   style: AppText.body1Semibold.copyWith(color: Colors.black),
                 ),
               ],

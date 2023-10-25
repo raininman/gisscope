@@ -53,7 +53,7 @@ class LocationProvider extends ChangeNotifier {
       Placemark place = placemarks[0];
 
       currentAddress =
-          '${place.street}, ${place.subLocality}, ${place.subAdministrativeArea}, ${place.postalCode}';
+          '${place.street}, ${place.subLocality}, ${place.subAdministrativeArea}';
     }).catchError((e) {
       debugPrint(e);
     });

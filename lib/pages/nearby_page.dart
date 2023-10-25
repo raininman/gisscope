@@ -117,7 +117,7 @@ class _NearbyPageState extends State<NearbyPage> {
             Positioned(
               right: 0,
               left: 0,
-              bottom: 0,
+              bottom: 70,
               child: SizedBox(
                 height: 250,
                 child: PageView(

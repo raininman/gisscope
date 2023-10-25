@@ -26,7 +26,6 @@ class EditProfilePage extends StatefulWidget {
 }
 
 class _EditProfilePageState extends State<EditProfilePage> {
-  
   final _formKey = GlobalKey<FormState>();
   final _scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -62,6 +61,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
   var locName;
 
   var gender = Gender.none;
+  var visibleGender = false;
 
   @override
   Widget build(BuildContext context) {
@@ -80,15 +80,17 @@ class _EditProfilePageState extends State<EditProfilePage> {
                     return Stack(
                       children: [
                         Padding(
-                          padding: EdgeInsets.all(10.0),
+                          padding: const EdgeInsets.all(10.0),
                           child: value.imagePath == null
-                              ?  UserAvatar(
+                              ? UserAvatar(
                                   size: 120,
-                                  path: '${AppConfig.baseURL}${context.read<AppRepo>().user!.avatar}',
+                                  path:
+                                      '${AppConfig.baseURL}${context.read<AppRepo>().user?.avatar}',
                                 )
                               : ClipRRect(
                                   borderRadius: const BorderRadius.all(
-                                      Radius.circular(16)),
+                                    Radius.circular(16),
+                                  ),
                                   child: SizedBox(
                                     height: 120,
                                     width: 120,
@@ -160,6 +162,8 @@ class _EditProfilePageState extends State<EditProfilePage> {
                 AppTextField(
                   keyboardType: TextInputType.phone,
                   hint: AppStrings.phoneNumber,
+                  validate: _validatePhoneNumber,
+                  helperText: 'Phone format: XXX-XXX-XXXX',
                   onFieldSubmitted: (_) {
                     _fieldFocusChange(context, _phoneFocus, _birthdayFocus);
                   },
@@ -217,6 +221,8 @@ class _EditProfilePageState extends State<EditProfilePage> {
                   hint: AppStrings.birthday,
                   focusNode: _birthdayFocus,
                   controller: _birthdayController,
+                  helperText: 'Birthday format: DD/MM/YYYY',
+                  validate: _validateBirthday,
                 ),
                 const SizedBox(
                   height: 16,
@@ -291,6 +297,21 @@ class _EditProfilePageState extends State<EditProfilePage> {
                   ),
                 ),
                 const SizedBox(
+                  height: 2,
+                ),
+                Row(
+                  children: [
+                    Checkbox(
+                        value: visibleGender,
+                        onChanged: (value) {
+                          setState(() {
+                            visibleGender = value!;
+                          });
+                        }),
+                    const Text('Visible on your profile'),
+                  ],
+                ),
+                const SizedBox(
                   height: 24,
                 ),
                 SizedBox(
@@ -298,73 +319,13 @@ class _EditProfilePageState extends State<EditProfilePage> {
                   width: 200,
                   child: ElevatedButton(
                     onPressed: () {
-                      final provider = context.read<UserProvider>();
-                      User? currUser = context.read<AppRepo>().user;
-                      provider.birthday = _birthdayController.text;
-                      provider.lastname = _lastnameController.text;
-                      provider.firstname = _firstnameController.text;
-                      provider.phoneNumber = _phoneController.text;
-                      provider.token = context.read<AppRepo>().token!;
-                      String? parsedGender;
-                      switch (gender) {
-                        case Gender.male:
-                          {
-                            parsedGender = 'male';
-                            break;
-                          }
-                        case Gender.female:
-                          {
-                            parsedGender = 'female';
-                            break;
-                          }
-                        case Gender.other:
-                          {
-                            parsedGender = 'other';
-                            break;
-                          }
-                        case Gender.none:
-                          {
-                            parsedGender = '';
-                            break;
-                          }
-                      }
-                      provider.gender = parsedGender;
-
-                      final locationProvider = context.read<LocationProvider>();
-                      List<String> mylist = provider.imagePath.split('/');
-                      final last = mylist[mylist.length-1];
-                      final fullPath = '/images/${last}';
-
-                      provider.updateUser().then((response) {
-                        if (response == 'success!') {
-                          final newUser = User(
-                              currUser!.id,
-                              currUser!.username,
-                              _firstnameController.text,
-                              _lastnameController.text,
-                              _phoneController.text,
-                              _birthdayController.text,
-                              parsedGender,
-                              false,
-                              Location(
-                                  locationProvider.currentPosition!.latitude,
-                                  locationProvider.currentPosition!.longitude,
-                                  locationProvider.currentAddress!),
-                              fullPath);
-                          currUser = newUser;
-                          print(fullPath);
-
-                          Navigator.of(context).pop();
-                        } else {
-                          print(response);
-                        }
-                      });
+                      _submitForm();
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: AppColors.primary,
                       foregroundColor: AppColors.black,
                     ),
-                    child: Text("Save"),
+                    child: const Text("Save"),
                   ),
                 ),
               ],
@@ -378,11 +339,112 @@ class _EditProfilePageState extends State<EditProfilePage> {
   String? _validateName(String? value) {
     final nameExp = RegExp(r'^[A-Za-z ]+$');
     if (value == null) {
-      return 'Name is reqired.';
+      return 'Name is required.';
     } else if (!nameExp.hasMatch(value)) {
       return 'Please enter alphabetical characters.';
     } else {
       return null;
     }
+  }
+
+  String? _validatePhoneNumber(String? input) {
+    final _phoneExp = RegExp(r'^\d\d\d\-\d\d\d\-\d\d\d\d$');
+    return _phoneExp.hasMatch(input!) ? null : 'Phone is required.';
+  }
+
+  String? _validateBirthday(String? input) {
+    final _birthExp = RegExp(
+        r'^(3[01]|[12][0-9]|0?[1-9])(\/|-)(1[0-2]|0?[1-9])\2([0-9]{2})?[0-9]{2}$');
+    return _birthExp.hasMatch(input!) ? null : 'Birthday is required.';
+  }
+
+  void _submitForm() {
+    if (_formKey.currentState!.validate() && locName != null) {
+      _formKey.currentState!.save();
+      final provider = context.read<UserProvider>();
+      User? currUser = context.read<AppRepo>().user;
+      provider.birthday = _birthdayController.text;
+      provider.lastname = _lastnameController.text;
+      provider.firstname = _firstnameController.text;
+      provider.phoneNumber = _phoneController.text;
+      provider.visibleGender = visibleGender;
+      provider.token = context.read<AppRepo>().token!;
+      String? parsedGender;
+      switch (gender) {
+        case Gender.male:
+          {
+            parsedGender = 'male';
+            break;
+          }
+        case Gender.female:
+          {
+            parsedGender = 'female';
+            break;
+          }
+        case Gender.other:
+          {
+            parsedGender = 'other';
+            break;
+          }
+        case Gender.none:
+          {
+            parsedGender = '';
+            break;
+          }
+      }
+      provider.gender = parsedGender;
+
+      final locationProvider = context.read<LocationProvider>();
+
+      var fullPath;
+      if (provider.imagePath != null) {
+        List<String> splitPath = provider.imagePath.split('/');
+        final last = splitPath[splitPath.length - 1];
+        fullPath = '/images/$last';
+      }
+
+      provider.updateUser().then((response) {
+        if (response == 'success!') {
+          final newUser = User(
+              currUser!.id,
+              currUser.username,
+              _firstnameController.text,
+              _lastnameController.text,
+              _phoneController.text,
+              _birthdayController.text,
+              parsedGender,
+              visibleGender,
+              Location(
+                  locationProvider.currentPosition!.latitude,
+                  locationProvider.currentPosition!.longitude,
+                  locationProvider.currentAddress!),
+              fullPath);
+          context.read<AppRepo>().user = newUser;
+
+          Navigator.of(context).pop();
+        } else {
+          print(response);
+        }
+      });
+    } else {
+      _showMessage(message: 'Form is not valid! Please review and correct');
+    }
+  }
+
+  void _showMessage({required String message}) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        duration: const Duration(seconds: 1),
+        backgroundColor: Colors.red,
+        content: Text(
+          message,
+          style: const TextStyle(
+            color: Colors.white,
+            fontWeight: FontWeight.w600,
+            fontSize: 18.0,
+          ),
+        ),
+      ),
+    );
   }
 }

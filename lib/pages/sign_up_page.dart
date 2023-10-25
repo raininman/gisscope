@@ -3,12 +3,12 @@ import 'package:gisscope/components/app_text_field.dart';
 import 'package:gisscope/config/app_routes.dart';
 import 'package:gisscope/config/app_strings.dart';
 import 'package:gisscope/provider/app_repo.dart';
+import 'package:gisscope/provider/location_provider.dart';
 import 'package:gisscope/provider/login_provider.dart';
 import 'package:gisscope/provider/register_provider.dart';
 import 'package:gisscope/styles/app_colors.dart';
 import 'package:provider/provider.dart';
-import 'package:geocoding/geocoding.dart';
-import 'package:geolocator/geolocator.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SignUpPage extends StatefulWidget {
   const SignUpPage({super.key});
@@ -18,63 +18,12 @@ class SignUpPage extends StatefulWidget {
 }
 
 class _SignUpPageState extends State<SignUpPage> {
-  String? _currentAddress;
-  Position? _currentPosition;
 
-  Future<bool> _handleLocationPermission() async {
-    bool serviceEnabled;
-    LocationPermission permission;
+  setPrefs(String pushedUsername, String pushedPassword) async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
 
-    serviceEnabled = await Geolocator.isLocationServiceEnabled();
-    if (!serviceEnabled) {
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-          content: Text(
-              'Location services are disabled. Please enable the services')));
-      return false;
-    }
-    permission = await Geolocator.checkPermission();
-    if (permission == LocationPermission.denied) {
-      permission = await Geolocator.requestPermission();
-      if (permission == LocationPermission.denied) {
-        ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text('Location permissions are denied')));
-        return false;
-      }
-    }
-    if (permission == LocationPermission.deniedForever) {
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-          content: Text(
-              'Location permissions are permanently denied, we cannot request permissions.')));
-      return false;
-    }
-    return true;
-  }
-
-  Future<void> _getCurrentPosition() async {
-    final hasPermission = await _handleLocationPermission();
-
-    if (!hasPermission) return;
-    await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high)
-        .then((Position position) {
-      setState(() => _currentPosition = position);
-      _getAddressFromLatLng(_currentPosition!);
-    }).catchError((e) {
-      debugPrint(e);
-    });
-  }
-
-  Future<void> _getAddressFromLatLng(Position position) async {
-    await placemarkFromCoordinates(
-            _currentPosition!.latitude, _currentPosition!.longitude)
-        .then((List<Placemark> placemarks) {
-      Placemark place = placemarks[0];
-      setState(() {
-        _currentAddress =
-            '${place.street}, ${place.subLocality}, ${place.subAdministrativeArea}, ${place.postalCode}';
-      });
-    }).catchError((e) {
-      debugPrint(e);
-    });
+    await prefs.setString('username', pushedUsername);
+    await prefs.setString('password', pushedPassword);
   }
 
   bool _hidePass = true;
@@ -122,107 +71,124 @@ class _SignUpPageState extends State<SignUpPage> {
             padding: const EdgeInsets.all(24.0),
             child: Form(
               key: _formKey,
-              child: Column(children: [
-                const Spacer(),
-                const Text(
-                  AppStrings.signUp,
-                  style: TextStyle(
-                    color: AppColors.fontColor,
-                    fontSize: 24,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
-                const SizedBox(height: 95),
-                AppTextField(
-                  keyboardType: TextInputType.name,
-                  onFieldSubmitted: (_) {
-                    _fieldFocusChange(context, _usernameFocus, _passFocus);
-                  },
-                  focusNode: _usernameFocus,
-                  autofocus: true,
-                  validate: _validateName,
-                  controller: _usernameController,
-                  hint: AppStrings.username,
-                ),
-                const SizedBox(height: 26),
-                AppTextField(
-                  onFieldSubmitted: (_) {
-                    _fieldFocusChange(context, _passFocus, _lastnameFocus);
-                  },
-                  focusNode: _passFocus,
-                  validate: _validatePassword,
-                  controller: _passController,
-                  obscureText: _hidePass,
-                  hint: AppStrings.password,
-                  suffixIcon: IconButton(
-                    icon: Icon(
-                        _hidePass ? Icons.visibility : Icons.visibility_off),
-                    onPressed: () {
-                      setState(() {
-                        _hidePass = !_hidePass;
-                      });
-                    },
-                  ),
-                ),
-                const SizedBox(height: 26),
-                AppTextField(
-                  keyboardType: TextInputType.name,
-                  onFieldSubmitted: (_) {
-                    _fieldFocusChange(context, _lastnameFocus, _firstnameFocus);
-                  },
-                  focusNode: _lastnameFocus,
-                  validate: _validateName,
-                  controller: _lastnameController,
-                  hint: AppStrings.lastName,
-                ),
-                const SizedBox(height: 26),
-                AppTextField(
-                  keyboardType: TextInputType.name,
-                  focusNode: _firstnameFocus,
-                  validate: _validateName,
-                  controller: _firstnameController,
-                  hint: AppStrings.firstName,
-                ),
-                const SizedBox(height: 26),
-                SizedBox(
-                  height: 48,
-                  width: 200,
-                  child: ElevatedButton(
-                    onPressed: () {
-                      _getCurrentPosition();
-                    },
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: AppColors.white,
-                      foregroundColor: AppColors.black,
+              child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Spacer(),
+                    const Text(
+                      AppStrings.signUp,
+                      style: TextStyle(
+                        color: AppColors.fontColor,
+                        fontSize: 24,
+                        fontWeight: FontWeight.w600,
+                      ),
                     ),
-                    child: const Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          const Text("Get Location"),
-                          SizedBox(
-                            width: 6,
-                          ),
-                          Icon(Icons.location_on_outlined)
-                        ]),
-                  ),
-                ),
-                const SizedBox(height: 95),
-                SizedBox(
-                  height: 48,
-                  width: double.infinity,
-                  child: ElevatedButton(
-                    onPressed: () {
-                      _submitForm(context);
-                    },
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: AppColors.primary,
-                      foregroundColor: AppColors.black,
+                    const SizedBox(height: 95),
+                    AppTextField(
+                      keyboardType: TextInputType.name,
+                      onFieldSubmitted: (_) {
+                        _fieldFocusChange(context, _usernameFocus, _passFocus);
+                      },
+                      focusNode: _usernameFocus,
+                      autofocus: true,
+                      validate: _validateName,
+                      controller: _usernameController,
+                      hint: AppStrings.username,
                     ),
-                    child: const Text(AppStrings.signUp),
-                  ),
-                ),
-                const Spacer(),
-              ]),
+                    const SizedBox(height: 26),
+                    AppTextField(
+                      onFieldSubmitted: (_) {
+                        _fieldFocusChange(context, _passFocus, _lastnameFocus);
+                      },
+                      focusNode: _passFocus,
+                      validate: _validatePassword,
+                      controller: _passController,
+                      obscureText: _hidePass,
+                      hint: AppStrings.password,
+                      suffixIcon: IconButton(
+                        icon: Icon(_hidePass
+                            ? Icons.visibility
+                            : Icons.visibility_off),
+                        onPressed: () {
+                          setState(() {
+                            _hidePass = !_hidePass;
+                          });
+                        },
+                      ),
+                    ),
+                    const SizedBox(height: 26),
+                    AppTextField(
+                      keyboardType: TextInputType.name,
+                      onFieldSubmitted: (_) {
+                        _fieldFocusChange(
+                            context, _lastnameFocus, _firstnameFocus);
+                      },
+                      focusNode: _lastnameFocus,
+                      validate: _validateName,
+                      controller: _lastnameController,
+                      hint: AppStrings.lastName,
+                    ),
+                    const SizedBox(height: 26),
+                    AppTextField(
+                      keyboardType: TextInputType.name,
+                      focusNode: _firstnameFocus,
+                      validate: _validateName,
+                      controller: _firstnameController,
+                      hint: AppStrings.firstName,
+                    ),
+                    const SizedBox(height: 26),
+                    SizedBox(
+                      height: 48,
+                      width: 200,
+                      child: ElevatedButton(
+                        onPressed: () {
+                          final locationProvider =
+                            context.read<LocationProvider>();
+                        locationProvider.getCurrentPosition();
+                        final registerProvider = context.read<RegisterProvider>();
+                        registerProvider.lat =
+                            locationProvider.currentPosition?.latitude;
+                        registerProvider.lng =
+                            locationProvider.currentPosition?.longitude;
+                        registerProvider.locationName =
+                            locationProvider.currentAddress;
+                        },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: AppColors.white,
+                          foregroundColor: AppColors.black,
+                        ),
+                        child: const Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text("Get Location"),
+                              SizedBox(
+                                width: 6,
+                              ),
+                              Icon(Icons.location_on_outlined)
+                            ]),
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 6,
+                    ),
+                    Text(context.read<LocationProvider>().currentAddress ?? 'Not specified'),
+                    const SizedBox(height: 95),
+                    SizedBox(
+                      height: 48,
+                      width: double.infinity,
+                      child: ElevatedButton(
+                        onPressed: () {
+                          _submitForm(context);
+                        },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: AppColors.primary,
+                          foregroundColor: AppColors.black,
+                        ),
+                        child: const Text(AppStrings.signUp),
+                      ),
+                    ),
+                    const Spacer(),
+                  ]),
             ),
           ),
         ),
@@ -241,15 +207,13 @@ class _SignUpPageState extends State<SignUpPage> {
       context.read<RegisterProvider>().username =
           _usernameController.text.trim();
 
-      context.read<RegisterProvider>().lat = _currentPosition!.latitude;
-      context.read<RegisterProvider>().lng = _currentPosition!.longitude;
-      context.read<RegisterProvider>().locationName = _currentAddress!;
-
       context.read<RegisterProvider>().register().then((value) {
         if (value == 'success!') {
           context.read<LoginProvider>().password = _passController.text.trim();
           context.read<LoginProvider>().username =
               _usernameController.text.trim();
+          setPrefs(
+              _usernameController.text.trim(), _passController.text.trim());
 
           context.read<LoginProvider>().login().then((value) {
             context.read<AppRepo>().user = value.user;
@@ -291,7 +255,7 @@ class _SignUpPageState extends State<SignUpPage> {
   String? _validateName(String? value) {
     final nameExp = RegExp(r'^[A-Za-z ]+$');
     if (value == null) {
-      return 'Name is reqired.';
+      return 'Name is required.';
     } else if (!nameExp.hasMatch(value)) {
       return 'Please enter alphabetical characters.';
     } else {

@@ -15,6 +15,7 @@ class UserProvider extends ChangeNotifier {
   var locationName;
   var birthday;
   var gender;
+  var visibleGender;
   var token;
   var imagePath;
 
@@ -28,15 +29,16 @@ class UserProvider extends ChangeNotifier {
       image = await upload();
     }
     return await UpdateUserService(
-            lastname: lastname,
-            firstname: firstname,
-            phoneNumber: phoneNumber,
-            location: mapLocation(),
-            birthday: birthday,
-            gender: gender,
-            token: token,
-            image: image)
-        .call();
+      lastname: lastname,
+      firstname: firstname,
+      phoneNumber: phoneNumber,
+      location: mapLocation(),
+      birthday: birthday,
+      gender: gender,
+      token: token,
+      image: image,
+      visibleGender: visibleGender,
+    ).call();
   }
 
   Future<String> upload() async {

@@ -9,6 +9,7 @@ class UpdateUserService extends BaseService {
   final String gender;
   final String token;
   final String? image;
+  final bool visibleGender;
 
   UpdateUserService(
       {required this.lastname,
@@ -18,7 +19,8 @@ class UpdateUserService extends BaseService {
       required this.birthday,
       required this.gender,
       required this.token,
-      required this.image});
+      required this.image,
+      required this.visibleGender,});
   @override
   Future<String> call() async {
     final body = {
@@ -29,6 +31,7 @@ class UpdateUserService extends BaseService {
       'gender': gender,
       'avatar': image,
       'birthday': birthday,
+      'visibleOnProfile': visibleGender,
     };
     final result = await put('user', body: body, token: token);
     final message = result['message'];

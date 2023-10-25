@@ -5,6 +5,7 @@ import 'package:gisscope/pages/main_page.dart';
 import 'package:gisscope/pages/nearby_page.dart';
 import 'package:gisscope/pages/profile_page.dart';
 import 'package:gisscope/pages/sign_up_page.dart';
+import 'package:gisscope/provider/location_provider.dart';
 import 'package:gisscope/provider/login_provider.dart';
 import 'package:gisscope/provider/register_provider.dart';
 import 'package:provider/provider.dart';
@@ -19,6 +20,9 @@ class AppRoutes {
         ChangeNotifierProvider<RegisterProvider>(
           create: (context) => RegisterProvider(),
         ),
+        ChangeNotifierProvider<LocationProvider>(
+          create: (context) => LocationProvider(),
+        ),
       ],
       child: const SignUpPage(),
     ),
@@ -27,7 +31,8 @@ class AppRoutes {
     home: (context) => const HomePage(),
     profile: (context) => const ProfilePage(),
     main: (context) => const MainPage(),
-    editProfile: (context) => const EditProfilePage(),
+    editProfile: (context) => ChangeNotifierProvider(create: (context) => LoginProvider(),
+    child: const EditProfilePage()),
     nearby: (context) => const NearbyPage(),
   };
   static const login = '/';
