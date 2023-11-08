@@ -47,6 +47,7 @@ dependencies:
   geolocator: ^10.1.0
   geocoding: ^2.1.1
   shared_preferences: ^2.2.2
+  get: ^4.6.6
 
 
 dev_dependencies:
@@ -103,6 +104,21 @@ flutter:
         - asset: assets/fonts/Urbanist-Light.ttf
           weight: 300
         - asset: assets/fonts/Urbanist-Black.ttf
+          weight: 900
+    - family: Onest
+      fonts:
+        - asset: assets/fonts/Onest-Regular.ttf
+        - asset: assets/fonts/Onest-Medium.ttf
+          weight: 500
+        - asset: assets/fonts/Onest-SemiBold.ttf
+          weight: 600
+        - asset: assets/fonts/Onest-Bold.ttf
+          weight: 700
+        - asset: assets/fonts/Onest-ExtraBold.ttf
+          weight: 800
+        - asset: assets/fonts/Onest-Light.ttf
+          weight: 300
+        - asset: assets/fonts/Onest-Black.ttf
           weight: 900
   #   - family: Trajan Pro
   #     fonts:

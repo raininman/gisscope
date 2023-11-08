@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:gisscope/components/app_text_field.dart';
 import 'package:gisscope/config/app_routes.dart';
-import 'package:gisscope/config/app_strings.dart';
 import 'package:gisscope/provider/app_repo.dart';
 import 'package:gisscope/provider/location_provider.dart';
 import 'package:gisscope/provider/login_provider.dart';
@@ -75,9 +75,9 @@ class _SignUpPageState extends State<SignUpPage> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     const Spacer(),
-                    const Text(
-                      AppStrings.signUp,
-                      style: TextStyle(
+                    Text(
+                      "signUp".tr,
+                      style: const TextStyle(
                         color: AppColors.fontColor,
                         fontSize: 24,
                         fontWeight: FontWeight.w600,
@@ -93,7 +93,7 @@ class _SignUpPageState extends State<SignUpPage> {
                       autofocus: true,
                       validate: _validateName,
                       controller: _usernameController,
-                      hint: AppStrings.username,
+                      hint: "username".tr,
                     ),
                     const SizedBox(height: 26),
                     AppTextField(
@@ -104,7 +104,7 @@ class _SignUpPageState extends State<SignUpPage> {
                       validate: _validatePassword,
                       controller: _passController,
                       obscureText: _hidePass,
-                      hint: AppStrings.password,
+                      hint: "password".tr,
                       suffixIcon: IconButton(
                         icon: Icon(_hidePass
                             ? Icons.visibility
@@ -126,7 +126,7 @@ class _SignUpPageState extends State<SignUpPage> {
                       focusNode: _lastnameFocus,
                       validate: _validateName,
                       controller: _lastnameController,
-                      hint: AppStrings.lastName,
+                      hint: "lastName".tr,
                     ),
                     const SizedBox(height: 26),
                     AppTextField(
@@ -134,7 +134,7 @@ class _SignUpPageState extends State<SignUpPage> {
                       focusNode: _firstnameFocus,
                       validate: _validateName,
                       controller: _firstnameController,
-                      hint: AppStrings.firstName,
+                      hint: "firstName".tr,
                     ),
                     const SizedBox(height: 26),
                     SizedBox(
@@ -157,14 +157,14 @@ class _SignUpPageState extends State<SignUpPage> {
                           backgroundColor: AppColors.white,
                           foregroundColor: AppColors.black,
                         ),
-                        child: const Row(
+                        child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Text("Get Location"),
-                              SizedBox(
+                              Text("getLocation".tr),
+                              const SizedBox(
                                 width: 6,
                               ),
-                              Icon(Icons.location_on_outlined)
+                              const Icon(Icons.location_on_outlined)
                             ]),
                       ),
                     ),
@@ -184,7 +184,7 @@ class _SignUpPageState extends State<SignUpPage> {
                           backgroundColor: AppColors.primary,
                           foregroundColor: AppColors.black,
                         ),
-                        child: const Text(AppStrings.signUp),
+                        child: Text("signUp".tr),
                       ),
                     ),
                     const Spacer(),
@@ -231,7 +231,7 @@ class _SignUpPageState extends State<SignUpPage> {
         _showMessage(message: '$error');
       });
     } else {
-      _showMessage(message: 'Form is not valid! Please review and correct');
+      _showMessage(message: "invalidForm".tr);
     }
   }
 
@@ -253,11 +253,11 @@ class _SignUpPageState extends State<SignUpPage> {
   }
 
   String? _validateName(String? value) {
-    final nameExp = RegExp(r'^[A-Za-z ]+$');
+    final nameExp = RegExp(r'/^([а-яё]+|[a-z]+)$/i');
     if (value == null) {
-      return 'Name is required.';
+      return "nameRequired".tr;
     } else if (!nameExp.hasMatch(value)) {
-      return 'Please enter alphabetical characters.';
+      return "enterAlphabetical".tr;
     } else {
       return null;
     }
@@ -265,7 +265,7 @@ class _SignUpPageState extends State<SignUpPage> {
 
   String? _validatePassword(String? value) {
     if (value?.length != 8) {
-      return '8 character required for password';
+      return "characterLength".tr;
     } else {
       return null;
     }
@@ -276,14 +276,14 @@ class _SignUpPageState extends State<SignUpPage> {
       context: context,
       builder: (context) {
         return AlertDialog(
-          title: const Text(
-            'Registration successful',
+          title:  Text(
+            "registrationSuccessful".tr,
             style: TextStyle(
               color: Colors.green,
             ),
           ),
           content: Text(
-            '$name is now a verified register form',
+            '$name ${"registered".tr}',
             style: const TextStyle(
               fontWeight: FontWeight.w700,
               fontSize: 18.0,
@@ -296,9 +296,9 @@ class _SignUpPageState extends State<SignUpPage> {
                 Navigator.of(context).pop();
                 Navigator.of(context).pushReplacementNamed(AppRoutes.main);
               },
-              child: const Text(
-                'Verified',
-                style: TextStyle(
+              child: Text(
+                "verified".tr,
+                style: const TextStyle(
                   color: Colors.green,
                   fontSize: 18.0,
                 ),

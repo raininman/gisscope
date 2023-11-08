@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:gisscope/config/app_routes.dart';
-import 'package:gisscope/config/app_strings.dart';
 import 'package:gisscope/provider/app_repo.dart';
 import 'package:gisscope/provider/login_provider.dart';
 import 'package:gisscope/styles/app_colors.dart';
@@ -57,8 +57,8 @@ class _LoginPageState extends State<LoginPage> {
         return true;
       }).catchError((error) {
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text("User not found"),
+          SnackBar(
+            content: Text("userNotFound".tr),
           ),
         );
         return false;
@@ -83,9 +83,9 @@ class _LoginPageState extends State<LoginPage> {
                       child: Column(
                         children: [
                           const Spacer(),
-                          const Text(
-                            AppStrings.helloWelcome,
-                            style: TextStyle(
+                          Text(
+                            "helloWelcome".tr,
+                            style: const TextStyle(
                               color: AppColors.fontColor,
                               fontSize: 24,
                               fontWeight: FontWeight.w600,
@@ -94,9 +94,9 @@ class _LoginPageState extends State<LoginPage> {
                           const SizedBox(
                             height: 16,
                           ),
-                          const Text(
-                            AppStrings.loginToContinue,
-                            style: TextStyle(
+                          Text(
+                            "loginToContinue".tr,
+                            style: const TextStyle(
                               color: AppColors.fontColor,
                               fontSize: 16,
                               fontWeight: FontWeight.w500,
@@ -111,8 +111,8 @@ class _LoginPageState extends State<LoginPage> {
                             focusNode: _usernameFocus,
                             autofocus: true,
                             decoration: InputDecoration(
-                              hintText: AppStrings.username,
-                              labelText: AppStrings.username,
+                              hintText: "username".tr,
+                              labelText: "username".tr,
                               labelStyle:
                                   const TextStyle(color: AppColors.white),
                               border: const UnderlineInputBorder(
@@ -152,8 +152,8 @@ class _LoginPageState extends State<LoginPage> {
                                   });
                                 },
                               ),
-                              hintText: AppStrings.password,
-                              labelText: AppStrings.password,
+                              hintText: "password".tr,
+                              labelText: "password".tr,
                               labelStyle:
                                   const TextStyle(color: AppColors.white),
                               border: const UnderlineInputBorder(
@@ -185,7 +185,7 @@ class _LoginPageState extends State<LoginPage> {
                               style: TextButton.styleFrom(
                                 foregroundColor: AppColors.fontColor,
                               ),
-                              child: const Text(AppStrings.forgotPassword),
+                              child: Text("forgotPassword".tr),
                             ),
                           ),
                           const SizedBox(
@@ -209,8 +209,8 @@ class _LoginPageState extends State<LoginPage> {
                                       .pushReplacementNamed(AppRoutes.main);
                                 }).catchError((error) {
                                   ScaffoldMessenger.of(context).showSnackBar(
-                                    const SnackBar(
-                                      content: Text("User not found"),
+                                    SnackBar(
+                                      content: Text("userNotFound".tr),
                                     ),
                                   );
                                 });
@@ -219,13 +219,13 @@ class _LoginPageState extends State<LoginPage> {
                                 backgroundColor: AppColors.primary,
                                 foregroundColor: AppColors.black,
                               ),
-                              child: const Text(AppStrings.login),
+                              child: Text("login".tr),
                             ),
                           ),
                           const Spacer(),
-                          const Text(
-                            AppStrings.orSignIn,
-                            style: TextStyle(
+                          Text(
+                            "orSignIn".tr,
+                            style: const TextStyle(
                                 color: AppColors.fontColor, fontSize: 16),
                           ),
                           const SizedBox(
@@ -257,7 +257,7 @@ class _LoginPageState extends State<LoginPage> {
                                   const SizedBox(
                                     width: 8,
                                   ),
-                                  const Text(AppStrings.loginGoogle)
+                                  Text("loginGoogle".tr)
                                 ],
                               ),
                             ),
@@ -291,7 +291,7 @@ class _LoginPageState extends State<LoginPage> {
                                   const SizedBox(
                                     width: 8,
                                   ),
-                                  const Text(AppStrings.loginFacebook)
+                                  Text("loginFacebook".tr)
                                 ],
                               ),
                             ),
@@ -302,9 +302,9 @@ class _LoginPageState extends State<LoginPage> {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              const Text(
-                                AppStrings.dontHaveAccount,
-                                style: TextStyle(
+                              Text(
+                                "dontHaveAccount".tr,
+                                style: const TextStyle(
                                   color: AppColors.disableFont,
                                 ),
                               ),
@@ -315,9 +315,9 @@ class _LoginPageState extends State<LoginPage> {
                                   Navigator.of(context)
                                       .pushNamed(AppRoutes.signUp);
                                 },
-                                child: const Text(
-                                  AppStrings.signUp,
-                                  style: TextStyle(
+                                child: Text(
+                                  "signUp".tr,
+                                  style: const TextStyle(
                                       decoration: TextDecoration.underline),
                                 ),
                               ),

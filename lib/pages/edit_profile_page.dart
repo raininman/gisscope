@@ -1,11 +1,11 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:gisscope/components/app_text_field.dart';
 import 'package:gisscope/components/toolbar.dart';
 import 'package:gisscope/components/user_avatar.dart';
 import 'package:gisscope/config/app_config.dart';
-import 'package:gisscope/config/app_strings.dart';
 import 'package:gisscope/data/model/location.dart';
 import 'package:gisscope/data/model/user.dart';
 import 'package:gisscope/provider/app_repo.dart';
@@ -67,7 +67,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: _scaffoldKey,
-      appBar: const Toolbar(title: AppStrings.editProfile),
+      appBar: Toolbar(title: "editProfile".tr),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(24.0),
@@ -134,7 +134,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                 ),
                 AppTextField(
                   keyboardType: TextInputType.name,
-                  hint: AppStrings.firstName,
+                  hint: "firstName".tr,
                   onFieldSubmitted: (_) {
                     _fieldFocusChange(context, _firstnameFocus, _lastnameFocus);
                   },
@@ -148,7 +148,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                 ),
                 AppTextField(
                   keyboardType: TextInputType.name,
-                  hint: AppStrings.lastName,
+                  hint: "lastName".tr,
                   onFieldSubmitted: (_) {
                     _fieldFocusChange(context, _lastnameFocus, _phoneFocus);
                   },
@@ -161,9 +161,9 @@ class _EditProfilePageState extends State<EditProfilePage> {
                 ),
                 AppTextField(
                   keyboardType: TextInputType.phone,
-                  hint: AppStrings.phoneNumber,
+                  hint: "phoneNumber".tr,
                   validate: _validatePhoneNumber,
-                  helperText: 'Phone format: XXX-XXX-XXXX',
+                  helperText: "phoneFormat".tr,
                   onFieldSubmitted: (_) {
                     _fieldFocusChange(context, _phoneFocus, _birthdayFocus);
                   },
@@ -196,14 +196,14 @@ class _EditProfilePageState extends State<EditProfilePage> {
                       backgroundColor: AppColors.white,
                       foregroundColor: AppColors.black,
                     ),
-                    child: const Row(
+                    child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Text("Get Location"),
-                          SizedBox(
+                          Text("getLocation".tr),
+                          const SizedBox(
                             width: 6,
                           ),
-                          Icon(Icons.location_on_outlined)
+                          const Icon(Icons.location_on_outlined)
                         ]),
                   ),
                 ),
@@ -218,10 +218,10 @@ class _EditProfilePageState extends State<EditProfilePage> {
                 ),
                 AppTextField(
                   keyboardType: TextInputType.datetime,
-                  hint: AppStrings.birthday,
+                  hint: "birthday".tr,
                   focusNode: _birthdayFocus,
                   controller: _birthdayController,
-                  helperText: 'Birthday format: DD/MM/YYYY',
+                  helperText: "birthdayFormat".tr,
                   validate: _validateBirthday,
                 ),
                 const SizedBox(
@@ -238,8 +238,8 @@ class _EditProfilePageState extends State<EditProfilePage> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Text(
-                        AppStrings.gender,
+                      Text(
+                        "gender".tr,
                         style: AppText.body2,
                       ),
                       Row(
@@ -250,7 +250,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                                 visualDensity: const VisualDensity(
                                     horizontal: VisualDensity.minimumDensity,
                                     vertical: VisualDensity.minimumDensity),
-                                title: const Text(AppStrings.male),
+                                title: Text("male".tr),
                                 value: Gender.male,
                                 groupValue: gender,
                                 onChanged: (value) {
@@ -266,7 +266,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                                   horizontal: VisualDensity.minimumDensity,
                                   vertical: VisualDensity.minimumDensity,
                                 ),
-                                title: const Text(AppStrings.female),
+                                title: Text("female".tr),
                                 value: Gender.female,
                                 groupValue: gender,
                                 onChanged: (value) {
@@ -282,7 +282,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                                   horizontal: VisualDensity.minimumDensity,
                                   vertical: VisualDensity.minimumDensity,
                                 ),
-                                title: const Text(AppStrings.other),
+                                title: Text("other".tr),
                                 value: Gender.other,
                                 groupValue: gender,
                                 onChanged: (value) {
@@ -308,7 +308,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                             visibleGender = value!;
                           });
                         }),
-                    const Text('Visible on your profile'),
+                    Text("visibleOnProfile".tr),
                   ],
                 ),
                 const SizedBox(
@@ -325,7 +325,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                       backgroundColor: AppColors.primary,
                       foregroundColor: AppColors.black,
                     ),
-                    child: const Text("Save"),
+                    child: Text("save".tr),
                   ),
                 ),
               ],
@@ -337,11 +337,11 @@ class _EditProfilePageState extends State<EditProfilePage> {
   }
 
   String? _validateName(String? value) {
-    final nameExp = RegExp(r'^[A-Za-z ]+$');
+    final nameExp = RegExp(r'/^([а-яё]+|[a-z]+)$/i');
     if (value == null) {
-      return 'Name is required.';
+      return "nameRequired".tr;
     } else if (!nameExp.hasMatch(value)) {
-      return 'Please enter alphabetical characters.';
+      return "enterAlphabetical".tr;
     } else {
       return null;
     }
@@ -349,13 +349,13 @@ class _EditProfilePageState extends State<EditProfilePage> {
 
   String? _validatePhoneNumber(String? input) {
     final _phoneExp = RegExp(r'^\d\d\d\-\d\d\d\-\d\d\d\d$');
-    return _phoneExp.hasMatch(input!) ? null : 'Phone is required.';
+    return _phoneExp.hasMatch(input!) ? null : "phoneRequired".tr;
   }
 
   String? _validateBirthday(String? input) {
     final _birthExp = RegExp(
         r'^(3[01]|[12][0-9]|0?[1-9])(\/|-)(1[0-2]|0?[1-9])\2([0-9]{2})?[0-9]{2}$');
-    return _birthExp.hasMatch(input!) ? null : 'Birthday is required.';
+    return _birthExp.hasMatch(input!) ? null : "birthdayRequired".tr;
   }
 
   void _submitForm() {
@@ -427,7 +427,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
         }
       });
     } else {
-      _showMessage(message: 'Form is not valid! Please review and correct');
+      _showMessage(message: "invalidForm".tr);
     }
   }
 

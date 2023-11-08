@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
+import 'package:get/get.dart';
 import 'package:gisscope/components/toolbar.dart';
 import 'package:gisscope/components/user_avatar.dart';
 import 'package:gisscope/components/user_page_item.dart';
 import 'package:gisscope/config/app_config.dart';
-import 'package:gisscope/config/app_strings.dart';
 import 'package:gisscope/data/model/user.dart';
 import 'package:gisscope/provider/user_provider.dart';
 import 'package:latlong2/latlong.dart';
@@ -32,7 +32,7 @@ class _NearbyPageState extends State<NearbyPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const Toolbar(title: AppStrings.nearby),
+      appBar: Toolbar(title: "nearby".tr),
       body: FutureBuilder(
         builder: (context, snapshot) {
           if (!snapshot.hasData) {
@@ -43,7 +43,7 @@ class _NearbyPageState extends State<NearbyPage> {
             FlutterMap(
               options: MapOptions(
                 center: const LatLng(53.9006, 27.5590),
-                zoom: 10,
+                zoom: 12,
               ),
               children: [
                 TileLayer(

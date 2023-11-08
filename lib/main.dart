@@ -8,6 +8,7 @@ import 'package:gisscope/provider/post_provider.dart';
 import 'package:gisscope/provider/user_provider.dart';
 import 'package:gisscope/styles/app_colors.dart';
 import 'package:provider/provider.dart';
+import 'package:get/get.dart';
 
 void main() async {
   await dotenv.load(fileName: ".env");
@@ -38,11 +39,14 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return GetMaterialApp(
+      translations: Languages(),
+      locale: Get.deviceLocale,
+      fallbackLocale: const Locale('en', 'US'),
       debugShowCheckedModeBanner: false,
-      title: AppStrings.appName,
+      title: "appName".tr,
       theme: ThemeData(
-        fontFamily: 'Urbanist',
+        fontFamily: Get.deviceLocale == Locale('en', 'US') ? 'Urbanist': 'Onest',
         scaffoldBackgroundColor: AppColors.background,
         brightness: Brightness.dark,
       ),

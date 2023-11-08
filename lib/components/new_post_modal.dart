@@ -1,8 +1,8 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:gisscope/components/app_text_field.dart';
-import 'package:gisscope/config/app_strings.dart';
 import 'package:gisscope/provider/app_repo.dart';
 import 'package:gisscope/provider/post_provider.dart';
 import 'package:gisscope/styles/app_colors.dart';
@@ -26,15 +26,15 @@ class NewPostModal extends StatelessWidget {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          const Text(
-            AppStrings.insertMessage,
+          Text(
+            "insertMessage".tr,
             style: AppText.headerSemibold,
           ),
           const SizedBox(
             height: 16,
           ),
           AppTextField(
-            hint: AppStrings.message,
+            hint: "message".tr,
             onChange: (value) {
               context.read<PostProvider>().message = value;
             },
@@ -42,8 +42,8 @@ class NewPostModal extends StatelessWidget {
           const SizedBox(
             height: 16,
           ),
-          const Text(
-            AppStrings.addImage,
+          Text(
+            "addImage".tr,
             style: AppText.headerSemibold,
           ),
           const SizedBox(
@@ -66,9 +66,9 @@ class NewPostModal extends StatelessWidget {
                     borderRadius: const BorderRadius.all(Radius.circular(16)),
                   ),
                   child: value.imagePath == null
-                      ? const Center(
+                      ? Center(
                           child: Text(
-                            AppStrings.uploadFromGallery,
+                            "uploadFromGallery".tr,
                             style: AppText.body1,
                           ),
                         )
@@ -97,8 +97,8 @@ class NewPostModal extends StatelessWidget {
           const SizedBox(
             height: 16,
           ),
-          const Text(
-            AppStrings.or,
+          Text(
+            "or".tr,
             style: AppText.headerSemibold,
           ),
           const SizedBox(height: 16),
@@ -110,8 +110,8 @@ class NewPostModal extends StatelessWidget {
             onPressed: () {
               context.read<PostProvider>().pickImage(ImageSource.camera);
             },
-            child: const Text(
-              AppStrings.camera,
+            child: Text(
+              "camera".tr,
               style: AppText.body1,
             ),
           ),
@@ -129,8 +129,8 @@ class NewPostModal extends StatelessWidget {
                   .createPost(context.read<AppRepo>().token!)
                   .then((value) => Navigator.of(context).pop());
             },
-            child: const Text(
-              AppStrings.uploadPost,
+            child: Text(
+              "uploadPost".tr,
               style: AppText.body1,
             ),
           ),

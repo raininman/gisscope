@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:gisscope/components/post_item.dart';
 import 'package:gisscope/components/toolbar.dart';
-import 'package:gisscope/config/app_strings.dart';
 import 'package:gisscope/provider/post_provider.dart';
 import 'package:provider/provider.dart';
 
@@ -22,8 +22,8 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const Toolbar(
-        title: AppStrings.appName,
+      appBar: Toolbar(
+        title: "appName".tr,
       ),
       body: Consumer<PostProvider>(
         builder: (context, value, child) {

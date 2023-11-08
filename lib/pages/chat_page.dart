@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:gisscope/components/chat_me_item.dart';
 import 'package:gisscope/components/chat_other_item.dart';
 import 'package:gisscope/components/toolbar.dart';
-import 'package:gisscope/config/app_strings.dart';
 import 'package:gisscope/provider/app_repo.dart';
 import 'package:gisscope/styles/app_colors.dart';
 import 'package:provider/provider.dart';
@@ -15,10 +15,10 @@ class ChatPage extends StatelessWidget {
     final provider = context.watch<AppRepo>();
     final messageController = TextEditingController();
     return Scaffold(
-      appBar: const Toolbar(title: AppStrings.chat),
+      appBar:  Toolbar(title: "chat".tr),
       body: SingleChildScrollView(
         child: SizedBox(
-          height: MediaQuery.of(context).size.height-115,
+          height: MediaQuery.of(context).size.height - 115,
           child: Column(
             children: [
               Expanded(
@@ -43,8 +43,8 @@ class ChatPage extends StatelessWidget {
                       child: TextField(
                         controller: messageController,
                         decoration: InputDecoration(
-                          hintText: AppStrings.enterMessage,
-                          labelText: AppStrings.enterMessage,
+                          hintText: "enterMessage".tr,
+                          labelText: "enterMessage".tr,
                           labelStyle: const TextStyle(color: AppColors.white),
                           border: const UnderlineInputBorder(
                             borderRadius: BorderRadius.all(

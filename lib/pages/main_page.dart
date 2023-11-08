@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:gisscope/components/app_bottom_navigation_item.dart';
 import 'package:gisscope/components/new_post_modal.dart';
 import 'package:gisscope/pages/chat_page.dart';
@@ -48,8 +49,8 @@ class _MainPageState extends State<MainPage> {
   final pages = [
     const HomePage(),
     const NearbyPage(),
-    const Center(
-      child: Text("Add"),
+    Center(
+      child: Text("add".tr),
     ),
     const ChatPage(),
     const ProfilePage(),
