@@ -13,6 +13,7 @@ class AppTextField extends StatelessWidget {
   final FormFieldValidator<String>? validate;
   final TextInputType? keyboardType;
   final String? helperText;
+  final Widget? suffix;
   const AppTextField(
       {super.key,
       required this.hint,
@@ -24,7 +25,9 @@ class AppTextField extends StatelessWidget {
       this.focusNode,
       this.autofocus,
       this.onFieldSubmitted,
-      this.keyboardType, this.helperText});
+      this.keyboardType,
+      this.helperText,
+      this.suffix});
 
   @override
   Widget build(BuildContext context) {
@@ -38,6 +41,7 @@ class AppTextField extends StatelessWidget {
       validator: validate,
       onChanged: onChange,
       decoration: InputDecoration(
+        suffix: suffix,
         helperText: helperText,
         suffixIcon: suffixIcon,
         hintText: hint,

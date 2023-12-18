@@ -26,6 +26,7 @@ class AppRepo extends ChangeNotifier {
       chats.add(Chat.fromJson(jsonDecode(message)));
       notifyListeners();
     });
+    print('sockets connected');
   }
 
   sendMessage(String message) {

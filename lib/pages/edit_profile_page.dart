@@ -1,6 +1,6 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:get/get.dart';
 import 'package:gisscope/components/app_text_field.dart';
 import 'package:gisscope/components/toolbar.dart';
@@ -175,7 +175,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                 ),
                 SizedBox(
                   height: 48,
-                  width: 200,
+                  width: 300,
                   child: ElevatedButton(
                     onPressed: () {
                       setState(() {
@@ -212,7 +212,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                 ),
                 Text(context.read<LocationProvider>().error ??
                     locName ??
-                    'Not specified'),
+                    "notSpecified".tr),
                 const SizedBox(
                   height: 16,
                 ),
@@ -223,6 +223,22 @@ class _EditProfilePageState extends State<EditProfilePage> {
                   controller: _birthdayController,
                   helperText: "birthdayFormat".tr,
                   validate: _validateBirthday,
+                  suffix: IconButton(
+                      onPressed: () async {
+                        DateTime? pickedDate = await showDatePicker(
+                            context: context,
+                            initialDate: DateTime.now(),
+                            firstDate: DateTime(1900),
+                            lastDate: DateTime.now());
+                        if (pickedDate != null) {
+                          print(pickedDate);
+                          String formattedDate =
+                              DateFormat('dd-MM-yyyy').format(pickedDate);
+                          print(formattedDate);
+                          _birthdayController.text = formattedDate;
+                        }
+                      }, //formatted date output using intl package =>  2021-03-16
+                      icon: Icon(Icons.date_range_outlined)),
                 ),
                 const SizedBox(
                   height: 16,
@@ -250,7 +266,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                                 visualDensity: const VisualDensity(
                                     horizontal: VisualDensity.minimumDensity,
                                     vertical: VisualDensity.minimumDensity),
-                                title: Text("male".tr),
+                                title: Text("male".tr, style: AppText.body2),
                                 value: Gender.male,
                                 groupValue: gender,
                                 onChanged: (value) {
@@ -266,7 +282,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                                   horizontal: VisualDensity.minimumDensity,
                                   vertical: VisualDensity.minimumDensity,
                                 ),
-                                title: Text("female".tr),
+                                title: Text("female".tr, style: AppText.body2),
                                 value: Gender.female,
                                 groupValue: gender,
                                 onChanged: (value) {
@@ -282,7 +298,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                                   horizontal: VisualDensity.minimumDensity,
                                   vertical: VisualDensity.minimumDensity,
                                 ),
-                                title: Text("other".tr),
+                                title: Text("other".tr, style: AppText.body2),
                                 value: Gender.other,
                                 groupValue: gender,
                                 onChanged: (value) {
@@ -337,7 +353,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
   }
 
   String? _validateName(String? value) {
-    final nameExp = RegExp(r'/^([а-яё]+|[a-z]+)$/i');
+    final nameExp = RegExp(r'^[А-яЁё A-Za-z]+$');
     if (value == null) {
       return "nameRequired".tr;
     } else if (!nameExp.hasMatch(value)) {

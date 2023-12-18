@@ -29,8 +29,8 @@ class Languages extends Translations {
           "location": "Местоположение",
           "birthday": "Дата рождения",
           "gender": "Пол",
-          "male": "Мужской",
-          "female": "Женский",
+          "male": "Муж",
+          "female": "Жен",
           "other": "Другой",
           "nearby": "Рядом",
           "insertMessage": "Напишите сообщение",
@@ -59,7 +59,8 @@ class Languages extends Translations {
           "birthdayRequired": "День Рождения необходим",
           "invalidForm": "Форма неккоректна",
           "russian": "Русский",
-          "english": "Английский"
+          "english": "Английский",
+          "notSpecified":"Не определено"
         },
         'en_US': {
           'profile': "Profile",
@@ -117,7 +118,8 @@ class Languages extends Translations {
           "birthdayRequired": "Birthday is required",
           "invalidForm": "Form is not valid! Please review and correct",
           "russian": "Russian",
-          "english": "English"
+          "english": "English",
+          "notSpecified":"Not specified"
         },
       };
 }

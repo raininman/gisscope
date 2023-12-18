@@ -139,7 +139,7 @@ class _SignUpPageState extends State<SignUpPage> {
                     const SizedBox(height: 26),
                     SizedBox(
                       height: 48,
-                      width: 200,
+                      width: 300,
                       child: ElevatedButton(
                         onPressed: () {
                           final locationProvider =
@@ -171,7 +171,7 @@ class _SignUpPageState extends State<SignUpPage> {
                     const SizedBox(
                       height: 6,
                     ),
-                    Text(context.read<LocationProvider>().currentAddress ?? 'Not specified'),
+                    Text(context.read<LocationProvider>().currentAddress ?? 'notSpecified'.tr),
                     const SizedBox(height: 95),
                     SizedBox(
                       height: 48,
@@ -253,7 +253,7 @@ class _SignUpPageState extends State<SignUpPage> {
   }
 
   String? _validateName(String? value) {
-    final nameExp = RegExp(r'/^([а-яё]+|[a-z]+)$/i');
+    final nameExp = RegExp(r'^[А-яЁё A-Za-z]+$');
     if (value == null) {
       return "nameRequired".tr;
     } else if (!nameExp.hasMatch(value)) {
