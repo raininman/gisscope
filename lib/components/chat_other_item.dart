@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gisscope/components/user_avatar.dart';
+import 'package:gisscope/config/app_config.dart';
 import 'package:gisscope/data/model/chat.dart';
 import 'package:gisscope/styles/app_colors.dart';
 import 'package:gisscope/styles/app_text.dart';
@@ -19,7 +20,7 @@ class ChatOtherItem extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const UserAvatar(),
+          UserAvatar(path: "${AppConfig.baseURL}${chat.user.avatar}"),
           const SizedBox(
             width: 8,
           ),

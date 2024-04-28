@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gisscope/components/post_item.dart';
+import 'package:gisscope/config/app_config.dart';
 import 'package:gisscope/data/model/user.dart';
 import 'package:gisscope/provider/post_provider.dart';
 import 'package:provider/provider.dart';
@@ -79,7 +80,7 @@ class UserAppBar extends StatelessWidget {
               width: expanded ? width : 180,
               height: expanded ? width : 180,
               duration: const Duration(milliseconds: 200),
-              child: Image.asset('assets/temp/user1.jpg', fit: BoxFit.cover),
+              child: Image.network('${AppConfig.baseURL}${user.avatar}', fit: BoxFit.cover),
             ),
           ),
           Positioned(

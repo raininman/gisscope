@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gisscope/components/user_avatar.dart';
+import 'package:gisscope/config/app_config.dart';
 import 'package:gisscope/data/model/chat.dart';
 import 'package:gisscope/styles/app_colors.dart';
 import 'package:gisscope/styles/app_text.dart';
@@ -41,7 +42,7 @@ class ChatMeItem extends StatelessWidget {
           const SizedBox(
             width: 8,
           ),
-          const UserAvatar( size: 40),
+          UserAvatar( size: 40, path: "${AppConfig.baseURL}${chat.user.avatar}"),
         ],
       ),
     );
