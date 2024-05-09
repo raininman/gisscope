@@ -6,6 +6,8 @@ import 'package:gisscope/components/user_avatar.dart';
 import 'package:gisscope/components/user_page_item.dart';
 import 'package:gisscope/config/app_config.dart';
 import 'package:gisscope/data/model/user.dart';
+import 'package:gisscope/provider/app_repo.dart';
+import 'package:gisscope/provider/map_provider.dart';
 import 'package:gisscope/provider/user_provider.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:provider/provider.dart';
@@ -22,6 +24,8 @@ class NearbyPage extends StatefulWidget {
 class _NearbyPageState extends State<NearbyPage> {
   final pageController = PageController(viewportFraction: 0.85);
   late final Future<List<User>> futureUsers;
+  var places;
+  var init = false;
 
   @override
   void initState() {
@@ -29,8 +33,12 @@ class _NearbyPageState extends State<NearbyPage> {
     super.initState();
   }
 
+  refresh() {
+    setState(() {});
+  }
+
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext builderContext) {
     return Scaffold(
       appBar: Toolbar(title: "nearby".tr),
       body: FutureBuilder(
@@ -42,17 +50,33 @@ class _NearbyPageState extends State<NearbyPage> {
           return Stack(children: [
             FlutterMap(
               options: MapOptions(
-                center: const LatLng(53.9006, 27.5590),
+                center: LatLng(
+                    builderContext.read<AppRepo>().user!.location!.lat,
+                    builderContext.read<AppRepo>().user!.location!.lng),
                 zoom: 12,
               ),
               children: [
                 TileLayer(
-                  urlTemplate: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
+                  urlTemplate:
+                      'https://maps.geoapify.com/v1/tile/dark-matter-brown/{z}/{x}/{y}.png?apiKey=5f4b6440389a4594a09477f2cbd56664',
                   userAgentPackageName: 'dev.fleaflet.flutter_map.example',
                 ),
-                MarkerLayer(
-                  markers: users
-                      .map((user) => Marker(
+                PolylineLayer(
+                  polylines: [
+                    Polyline(
+                      points: [
+                        ...builderContext
+                                .read<MapProvider>()
+                                .latlng ?? List.empty(),
+                      ],
+                      color: Colors.blue,
+                      strokeWidth: 1,
+                    ),
+                  ],
+                ),
+                MarkerLayer(markers: [
+                  ...users
+                      .map<Marker>((user) => Marker(
                             width: 300,
                             height: 100,
                             point: LatLng(user.location?.lat ?? 0.0,
@@ -68,7 +92,8 @@ class _NearbyPageState extends State<NearbyPage> {
                                     }
                                   }
                                   pageController.animateToPage(page,
-                                      duration: const Duration(milliseconds: 500),
+                                      duration:
+                                          const Duration(milliseconds: 500),
                                       curve: Curves.easeIn);
                                 },
                                 child: Column(
@@ -98,10 +123,12 @@ class _NearbyPageState extends State<NearbyPage> {
                                         child: ClipPath(
                                           clipper: MarkerClipper(),
                                           child: SizedBox(
-                                            height: 60,
-                                            width: 48,
-                                            child: UserAvatar(size:60, path: '${AppConfig.baseURL}${user.avatar}')
-                                          ),
+                                              height: 60,
+                                              width: 48,
+                                              child: UserAvatar(
+                                                  size: 60,
+                                                  path:
+                                                      '${AppConfig.baseURL}${user.avatar}')),
                                         ),
                                       ),
                                     )
@@ -111,19 +138,85 @@ class _NearbyPageState extends State<NearbyPage> {
                             },
                           ))
                       .toList(),
-                )
+                  ...builderContext
+                          .read<MapProvider>()
+                          .places
+                          ?.features
+                          .map<Marker>((place) => Marker(
+                              width: 100,
+                              height: 100,
+                              point: LatLng(place.properties!.lat!,
+                                  place.properties!.lon!),
+                              builder: (context) {
+                                return GestureDetector(
+                                  onTap: () async => {
+                                    builderContext
+                                        .read<MapProvider>()
+                                        .latPolyline = place.properties!.lat!,
+                                    builderContext
+                                        .read<MapProvider>()
+                                        .lonPolyline = place.properties!.lon!,
+                                        builderContext
+                                .read<MapProvider>()
+                                .latlng = [],
+                                    await builderContext
+                                        .read<MapProvider>()
+                                        .getTomPolylines(),
+                                    refresh(),
+                                  },
+                                  child: Column(
+                                    children: [
+                                      Container(
+                                        padding: const EdgeInsets.symmetric(
+                                          vertical: 4,
+                                          horizontal: 8,
+                                        ),
+                                        decoration: const BoxDecoration(
+                                          color: Colors.white,
+                                          borderRadius: BorderRadius.all(
+                                            Radius.circular(14),
+                                          ),
+                                        ),
+                                        child: Text(
+                                          '${place.properties?.name}',
+                                          style: const TextStyle(
+                                              color: Colors.black,
+                                              fontSize: 7),
+                                        ),
+                                      ),
+                                      CustomPaint(
+                                        painter: MarkerPainter(),
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(2.0),
+                                          child: ClipPath(
+                                              clipper: MarkerClipper(),
+                                              child: const SizedBox(
+                                                  height: 20,
+                                                  width: 18,
+                                                  child: UserAvatar(size: 60))),
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                );
+                              }))
+                          .toList() ??
+                      List.empty()
+                ])
               ],
             ),
             Positioned(
               right: 0,
               left: 0,
-              bottom: 70,
+              bottom: 100,
               child: SizedBox(
-                height: 250,
+                height: 300,
                 child: PageView(
                   controller: pageController,
-                  children:
-                      users.map((user) => UserPageItem(user: user)).toList(),
+                  children: users
+                      .map((user) =>
+                          UserPageItem(user: user, notifyParent: refresh))
+                      .toList(),
                 ),
               ),
             ),

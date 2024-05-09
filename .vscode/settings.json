@@ -1,7 +1,4 @@
 {
-  "cSpell.words": [
-    "Bezier",
-    "fleaflet"
-  ],
+  "cSpell.words": ["Bezier", "fleaflet", "latlng"],
   "workbench.sideBar.location": "left"
 }

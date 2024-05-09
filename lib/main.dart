@@ -4,6 +4,7 @@ import 'package:gisscope/config/app_routes.dart';
 import 'package:gisscope/config/app_strings.dart';
 import 'package:gisscope/provider/app_repo.dart';
 import 'package:gisscope/provider/location_provider.dart';
+import 'package:gisscope/provider/map_provider.dart';
 import 'package:gisscope/provider/post_provider.dart';
 import 'package:gisscope/provider/user_provider.dart';
 import 'package:gisscope/styles/app_colors.dart';
@@ -26,6 +27,9 @@ void main() async {
         ),
         ChangeNotifierProvider<LocationProvider>(
           create: (context) => LocationProvider(),
+        ),
+        ChangeNotifierProvider<MapProvider>(
+          create: (context) => MapProvider(),
         ),
       ],
       child: const MyApp(),
