@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:gisscope/components/app_text_field.dart';
 import 'package:gisscope/config/app_routes.dart';
+import 'package:gisscope/data/service/auth_service.dart';
 import 'package:gisscope/provider/app_repo.dart';
 import 'package:gisscope/provider/location_provider.dart';
 import 'package:gisscope/provider/login_provider.dart';
@@ -18,12 +19,24 @@ class SignUpPage extends StatefulWidget {
 }
 
 class _SignUpPageState extends State<SignUpPage> {
-
   setPrefs(String pushedUsername, String pushedPassword) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
 
     await prefs.setString('username', pushedUsername);
     await prefs.setString('password', pushedPassword);
+  }
+
+  void register(email, password, context) {
+    final _auth = AuthService();
+    try {
+      _auth.signUpWithEmailPassword(email, password);
+    } catch (e) {
+      showDialog(
+          context: context,
+          builder: (context) => AlertDialog(
+                title: Text(e.toString()),
+              ));
+    }
   }
 
   bool _hidePass = true;
@@ -142,16 +155,19 @@ class _SignUpPageState extends State<SignUpPage> {
                       width: 300,
                       child: ElevatedButton(
                         onPressed: () {
-                          final locationProvider =
-                            context.read<LocationProvider>();
-                        locationProvider.getCurrentPosition();
-                        final registerProvider = context.read<RegisterProvider>();
-                        registerProvider.lat =
-                            locationProvider.currentPosition?.latitude;
-                        registerProvider.lng =
-                            locationProvider.currentPosition?.longitude;
-                        registerProvider.locationName =
-                            locationProvider.currentAddress;
+                          setState(() {
+                            final locationProvider =
+                              context.read<LocationProvider>();
+                          locationProvider.getCurrentPosition();
+                          final registerProvider =
+                              context.read<RegisterProvider>();
+                          registerProvider.lat =
+                              locationProvider.currentPosition?.latitude;
+                          registerProvider.lng =
+                              locationProvider.currentPosition?.longitude;
+                          registerProvider.locationName =
+                              locationProvider.currentAddress;
+                          });
                         },
                         style: ElevatedButton.styleFrom(
                           backgroundColor: AppColors.white,
@@ -171,7 +187,8 @@ class _SignUpPageState extends State<SignUpPage> {
                     const SizedBox(
                       height: 6,
                     ),
-                    Text(context.read<LocationProvider>().currentAddress ?? 'notSpecified'.tr),
+                    Text(context.read<LocationProvider>().currentAddress ??
+                        'notSpecified'.tr),
                     const SizedBox(height: 95),
                     SizedBox(
                       height: 48,
@@ -214,7 +231,8 @@ class _SignUpPageState extends State<SignUpPage> {
               _usernameController.text.trim();
           setPrefs(
               _usernameController.text.trim(), _passController.text.trim());
-
+          register('${_usernameController.text.trim()}@gisscope.com',
+              _passController.text.trim(), context);
           context.read<LoginProvider>().login().then((value) {
             context.read<AppRepo>().user = value.user;
             context.read<AppRepo>().token = value.token;
@@ -223,7 +241,6 @@ class _SignUpPageState extends State<SignUpPage> {
             _showMessage(message: '$error');
             return;
           });
-          print('Name: ${_usernameController.text}');
         } else {
           _showMessage(message: value);
         }
@@ -276,7 +293,7 @@ class _SignUpPageState extends State<SignUpPage> {
       context: context,
       builder: (context) {
         return AlertDialog(
-          title:  Text(
+          title: Text(
             "registrationSuccessful".tr,
             style: TextStyle(
               color: Colors.green,
@@ -294,7 +311,7 @@ class _SignUpPageState extends State<SignUpPage> {
               onPressed: () {
                 Navigator.of(context).pop();
                 Navigator.of(context).pop();
-                Navigator.of(context).pushReplacementNamed(AppRoutes.main);
+                // Navigator.of(context).pushReplacementNamed(AppRoutes.main);
               },
               child: Text(
                 "verified".tr,

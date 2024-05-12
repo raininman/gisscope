@@ -40,23 +40,17 @@ class MapProvider extends ChangeNotifier {
       lat2: latPolyline.toString(),
       lon2: lonPolyline.toString(),
     ).call();
-    print(polylines.results[0].legs[0].steps[1].fromIndex);
     List<int> from = [];
     polylines.results[0].legs.forEach((leg) {
       leg.steps.forEach((step) {
         from.add(step.fromIndex);
-        print(from);
       });
     });
-    latlng.add(LatLng(lat, lon));
     for (int i = 0; i < from[from.length - 1]; i++) {
       if (from.contains(i)) {
-        print(i);
-        latlng.add(LatLng(polylines.properties.waypoints[i].lon,
-            polylines.properties.waypoints[i].lat));
+        latlng.add(LatLng(polylines.results[0].geometry[0][i]['lon'],
+            polylines.results[0].geometry[0][i]['lat']));
       }
-      latlng.add(LatLng(latPolyline, lonPolyline));
-      print(latlng);
     }
   }
 

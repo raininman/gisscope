@@ -5,6 +5,7 @@ import 'package:gisscope/components/toolbar.dart';
 import 'package:gisscope/components/user_avatar.dart';
 import 'package:gisscope/config/app_config.dart';
 import 'package:gisscope/config/app_routes.dart';
+import 'package:gisscope/data/service/auth_service.dart';
 import 'package:gisscope/provider/app_repo.dart';
 import 'package:gisscope/provider/post_provider.dart';
 import 'package:gisscope/styles/app_text.dart';
@@ -33,6 +34,11 @@ class _ProfilePageState extends State<ProfilePage> {
     await prefs.remove('password');
   }
 
+  void logout() {
+    final _auth = AuthService();
+    _auth.signOut();
+  }
+
   @override
   Widget build(BuildContext context) {
     final user = Provider.of<AppRepo>(context).user;
@@ -45,7 +51,7 @@ class _ProfilePageState extends State<ProfilePage> {
               switch (value) {
                 case ProfileMenu.logout:
                   removePrefs();
-                  Navigator.of(context).pushReplacementNamed(AppRoutes.login);
+                  logout();
                   break;
                 case ProfileMenu.edit:
                   Navigator.of(context).pushNamed(AppRoutes.editProfile);

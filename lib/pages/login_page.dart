@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:gisscope/config/app_routes.dart';
+import 'package:gisscope/data/service/auth_service.dart';
 import 'package:gisscope/provider/app_repo.dart';
 import 'package:gisscope/provider/login_provider.dart';
 import 'package:gisscope/styles/app_colors.dart';
@@ -53,7 +54,7 @@ class _LoginPageState extends State<LoginPage> {
       context.read<LoginProvider>().login().then((value) {
         context.read<AppRepo>().user = value.user;
         context.read<AppRepo>().token = value.token;
-        Navigator.of(context).pushReplacementNamed(AppRoutes.main);
+        // Navigator.of(context).pushReplacementNamed(AppRoutes.main);
         return true;
       }).catchError((error) {
         ScaffoldMessenger.of(context).showSnackBar(
@@ -65,6 +66,19 @@ class _LoginPageState extends State<LoginPage> {
       });
     }
     return false;
+  }
+
+  void login(email, password, context) async {
+    final authService = AuthService();
+    try {
+      await authService.signInWithEmailPassword(email, password);
+    } catch (e) {
+      showDialog(
+          context: context,
+          builder: (context) => AlertDialog(
+                title: Text(e.toString()),
+              ));
+    }
   }
 
   @override
@@ -196,6 +210,10 @@ class _LoginPageState extends State<LoginPage> {
                             width: double.infinity,
                             child: ElevatedButton(
                               onPressed: () {
+                                login(
+                                    '${context.read<LoginProvider>().username}@gisscope.com',
+                                    context.read<LoginProvider>().password,
+                                    context);
                                 context
                                     .read<LoginProvider>()
                                     .login()
